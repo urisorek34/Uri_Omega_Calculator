@@ -96,17 +96,21 @@ class Divide(Operator):
         super().__init__()
         self.operator = "/"
 
-    def check_format_operator_validation(self, formula_list):
+    def check_format_operator_validation(self, formula_list: list) -> bool:
         """
         This method checks the format of the operator in the formula.
         :param: formula_list: the formula list.
         :return: True if the format is valid, False otherwise.
         """
-        operands_is_type_valid = isinstance(formula_list[0], float) and isinstance(formula_list[2], float)
-        return len(formula_list) == 3 and operands_is_type_valid and formula_list[1] == self.operator and formula_list[
-            2] != 0
+        try:
+            # if divide by zero --> raise zero division exception
+            if formula_list[2] == 0:
+                raise ZeroDivisionError(f"You divided by zero --> {formula_list[0]}{self.operator}{formula_list[2]}")
+        except IndexError as index_error:
+            print(index_error)
+        return super().check_format_operator_validation(formula_list)
 
-    def calculate_formula(self, formula_list):
+    def calculate_formula(self, formula_list: list) -> float:
         """
         This method calculates the formula (num1 / num2).
         :param: formula_list: the formula list.
@@ -124,7 +128,7 @@ class Power(Operator):
         super().__init__()
         self.operator = "^"
 
-    def calculate_formula(self, formula_list):
+    def calculate_formula(self, formula_list: list) -> float:
         """
         This method calculates the formula (num1 ** num2).
         :param: formula_list: the formula list.
@@ -142,7 +146,7 @@ class Modulo(Operator):
         super().__init__()
         self.operator = "%"
 
-    def calculate_formula(self, formula_list):
+    def calculate_formula(self, formula_list: list) -> float:
         """
         This method calculates the formula (num1 % num2).
         :param: formula_list: the formula list.
@@ -160,7 +164,7 @@ class Max(Operator):
         super().__init__()
         self.operator = "$"
 
-    def calculate_formula(self, formula_list):
+    def calculate_formula(self, formula_list: list) -> float:
         """
         This method calculates the formula (max(num1, num2)).
         :param: formula_list: the formula list.
@@ -178,7 +182,7 @@ class Min(Operator):
         super().__init__()
         self.operator = "&"
 
-    def calculate_formula(self, formula_list):
+    def calculate_formula(self, formula_list: list) -> float:
         """
         This method calculates the formula (min(num1, num2)).
         :param: formula_list: the formula list.
@@ -196,7 +200,7 @@ class Average(Operator):
         super().__init__()
         self.operator = "@"
 
-    def calculate_formula(self, formula_list):
+    def calculate_formula(self, formula_list: list) -> float:
         """
         This method calculates the formula (average(num1, num2)).
         :param: formula_list: the formula list.
@@ -214,7 +218,7 @@ class Negative(Operator):
         super().__init__()
         self.operator = "~"
 
-    def check_format_operator_validation(self, formula_list):
+    def check_format_operator_validation(self, formula_list: list) -> bool:
         """
         This method checks the format of the operator in the formula (overrides the method of Operator class).
         :param: formula_list: the formula list.
@@ -222,7 +226,7 @@ class Negative(Operator):
         """
         return len(formula_list) == 2 and isinstance(formula_list[1], float)
 
-    def calculate_formula(self, formula_list):
+    def calculate_formula(self, formula_list: list) -> float:
         """
         This method calculates the formula (-num1).
         :param: formula_list: the formula list.
@@ -240,7 +244,7 @@ class Factorial(Operator):
         super().__init__()
         self.operator = "!"
 
-    def check_format_operator_validation(self, formula_list):
+    def check_format_operator_validation(self, formula_list: list) -> float:
         """
         This method checks the format of the operator in the formula (overrides the method of Operator class).
         :param: formula_list: the formula list.
@@ -249,7 +253,7 @@ class Factorial(Operator):
         check_if_num_is_natural = float(formula_list[0]) % 1 == 0 and float(formula_list[0]) >= 0
         return len(formula_list) == 2 and isinstance(formula_list[0], float) and check_if_num_is_natural
 
-    def calculate_formula(self, formula_list):
+    def calculate_formula(self, formula_list: list) -> float:
         """
         This method calculates the formula (num1!).
         :param: formula_list: the formula list.
