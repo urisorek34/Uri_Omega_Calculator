@@ -22,6 +22,7 @@ def check_spaces_between_numbers(equation: str) -> bool:
     :return: True if there are spaces and False if not.
     """
     current_string_start = 1
+    space_index = 0
     while space_index != -1:
         # check for each space if it between two numbers
         space_index = equation.find(" ", current_string_start)
@@ -29,3 +30,5 @@ def check_spaces_between_numbers(equation: str) -> bool:
             return False
         current_string_start = space_index + 1
     return True
+
+
