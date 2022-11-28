@@ -4,7 +4,6 @@ Date:
 Description: this module contains the operators' calculations.
 """
 
-
 from check_formula_operators import check_operator_validation
 from math import factorial, pow
 
@@ -151,3 +150,15 @@ def calculate_average_formula(formula_list: list) -> float:
         raise ValueError("The average operator is not valid.")  # TODO: add the right error.
     return (formula_list[1] + formula_list[3]) / 2
 
+
+def calculate_add_digits_formula(formula_list: list) -> float:
+    """
+    This method calculates the formula (add_digits(num1)) if the formula is valid.
+    raise appropriate exception if the formula is not valid.
+    :param: formula_list: the formula list.
+    :return: the result of the calculation.
+    """
+    operator = '#'
+    if not check_operator_validation(operator, formula_list):
+        raise ValueError("The add_digits operator is not valid.")  # TODO: add the right error.
+    return sum([int(digit) for digit in str(formula_list[1])])
