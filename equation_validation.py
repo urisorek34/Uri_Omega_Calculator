@@ -2,7 +2,7 @@
 Auther: Uri Sorek
 Date:
 
-Description: this module contains formula validation check for the input string.
+Description: this module contains formula validation check for the input string (what to calculate).
 """
 
 
@@ -27,8 +27,6 @@ def check_spaces_between_numbers(equation: str) -> bool:
         # check for each space if it between two numbers
         space_index = equation.find(" ", current_string_start)
         if equation[space_index - 1].isdigit() and equation[space_index + 1].isdigit():
-            return False
+            return True
         current_string_start = space_index + 1
-    return True
-
-
+    return False
