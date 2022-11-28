@@ -1,261 +1,142 @@
 """
 Auther: Uri Sorek
 Date:
-
-Description: this module contains the operators classes (with calculation and validation check for each operator).
+Description: this module contains the operators' validation check for checking validation before calculating.
 """
-from math import pow
 
 
-class Operator(object):
+def check_defult_format_operator_validation(operator: str, formula_list: list) -> bool:
     """
-    This class is the base class of the different operators in the calculator.
+    This method checks the format of the operator in the formula.
+    :param: formula_list: the formula list.
+    :param: operator: the operator that is given to the function.
+    :return: True if the format is valid, False otherwise.
     """
-
-    def __init__(self):
-        self.operator = None
-
-    def check_format_operator_validation(self, formula_list):
-        """
-        This method checks the format of the operator in the formula.
-        :param: formula_list: the formula list.
-        :return: True if the format is valid, False otherwise.
-        """
-        operands_is_type_valid = isinstance(formula_list[0], float) and isinstance(formula_list[2], float)
-        return len(formula_list) == 3 and operands_is_type_valid and formula_list[1] == self.operator
-
-    def calculate_formula(self, formula_list):
-        """
-        This method calculates the formula (method to override).
-        :param: formula_list: the formula list.
-        :return: the result of the calculation.
-        """
-        pass
+    operands_is_type_valid = isinstance(formula_list[0], float) and isinstance(formula_list[2], float)
+    return len(formula_list) == 3 and operands_is_type_valid and formula_list[1] == operator
 
 
-class Plus(Operator):
+def check_plus_operator_validation(formula_list: list) -> bool:
     """
-    This class is the plus operator class.
+    This method checks the format of the plus operator in the formula.
+    :param: formula_list: the formula list.
+    :return: True if the format is valid, False otherwise.
     """
-
-    def __init__(self):
-        super().__init__()
-        self.operator = "+"
-
-    def calculate_formula(self, formula_list):
-        """
-        This method calculates the formula (num1 + num2).
-        :param: formula_list: the formula list.
-        :return: the result of the calculation.
-        """
-        return formula_list[0] + formula_list[2]
+    operator = "+"
+    return check_defult_format_operator_validation(operator, formula_list)
 
 
-class Minus(Operator):
+def check_minus_operator_validation(formula_list: list) -> bool:
     """
-    This class is the minus operator class.
+    This method checks the format of the minus operator in the formula.
+    :param: formula_list: the formula list.
+    :return: True if the format is valid, False otherwise.
     """
-
-    def __init__(self):
-        super().__init__()
-        self.operator = "-"
-
-    def calculate_formula(self, formula_list):
-        """
-        This method calculates the formula (num1 - num2).
-        :param: formula_list: the formula list.
-        :return: the result of the calculation.
-        """
-        return formula_list[0] - formula_list[2]
+    operator = "-"
+    return check_defult_format_operator_validation(operator, formula_list)
 
 
-class Multiply(Operator):
+def check_multiply_operator_validation(formula_list: list) -> bool:
     """
-    This class is the multiply operator class.
+    This method checks the format of the multiply operator in the formula.
+    :param: formula_list: the formula list.
+    :return: True if the format is valid, False otherwise.
     """
-
-    def __init__(self):
-        super().__init__()
-        self.operator = "*"
-
-    def calculate_formula(self, formula_list):
-        """
-        This method calculates the formula (num1 * num2).
-        :param: formula_list: the formula list.
-        :return: the result of the calculation.
-        """
-        return formula_list[0] * formula_list[2]
+    operator = "*"
+    return check_defult_format_operator_validation(operator, formula_list)
 
 
-class Divide(Operator):
+def check_divide_operator_validation(formula_list: list) -> bool:
     """
-    This class is the divide operator class.
+    This method checks the format of the divide operator in the formula.
+    :param: formula_list: the formula list.
+    :return: True if the format is valid, False otherwise.
     """
-
-    def __init__(self):
-        super().__init__()
-        self.operator = "/"
-
-    def check_format_operator_validation(self, formula_list):
-        """
-        This method checks the format of the operator in the formula.
-        :param: formula_list: the formula list.
-        :return: True if the format is valid, False otherwise.
-        """
-        operands_is_type_valid = isinstance(formula_list[0], float) and isinstance(formula_list[2], float)
-        return len(formula_list) == 3 and operands_is_type_valid and formula_list[1] == self.operator and formula_list[
-            2] != 0
-
-    def calculate_formula(self, formula_list):
-        """
-        This method calculates the formula (num1 / num2).
-        :param: formula_list: the formula list.
-        :return: the result of the calculation.
-        """
-        return formula_list[0] / formula_list[2]
+    operator = "/"
+    return check_defult_format_operator_validation(operator, formula_list) and formula_list[2] != 0
 
 
-class Power(Operator):
+def check_power_operator_validation(formula_list: list) -> bool:
     """
-    This class is the power operator class.
+    This method checks the format of the power operator in the formula.
+    :param: formula_list: the formula list.
+    :return: True if the format is valid, False otherwise.
     """
-
-    def __init__(self):
-        super().__init__()
-        self.operator = "^"
-
-    def calculate_formula(self, formula_list):
-        """
-        This method calculates the formula (num1 ** num2).
-        :param: formula_list: the formula list.
-        :return: the result of the calculation.
-        """
-        return pow(formula_list[0], formula_list[2])
+    operator = "^"
+    return check_defult_format_operator_validation(operator, formula_list)
 
 
-class Modulo(Operator):
+def check_modulo_operator_validation(formula_list: list) -> bool:
     """
-    This class is the modulo operator class.
+    This method checks the format of the modulo operator in the formula.
+    :param: formula_list: the formula list.
+    :return: True if the format is valid, False otherwise.
     """
-
-    def __init__(self):
-        super().__init__()
-        self.operator = "%"
-
-    def calculate_formula(self, formula_list):
-        """
-        This method calculates the formula (num1 % num2).
-        :param: formula_list: the formula list.
-        :return: the result of the calculation.
-        """
-        return formula_list[0] % formula_list[2]
+    operator = "%"
+    return check_defult_format_operator_validation(operator, formula_list) and formula_list[2] != 0
 
 
-class Max(Operator):
+def check_factorial_operator_validation(formula_list: list) -> bool:
     """
-    This class is the max operator class.
+    This method checks the format of the factorial operator in the formula.
+    :param: formula_list: the formula list.
+    :return: True if the format is valid, False otherwise.
     """
-
-    def __init__(self):
-        super().__init__()
-        self.operator = "$"
-
-    def calculate_formula(self, formula_list):
-        """
-        This method calculates the formula (max(num1, num2)).
-        :param: formula_list: the formula list.
-        :return: the result of the calculation.
-        """
-        return max(formula_list[0], formula_list[2])
+    operator = "!"
+    return len(formula_list) == 2 and isinstance(formula_list[0], float) and formula_list[1] == operator
 
 
-class Min(Operator):
+def check_max_operator_validation(formula_list: list) -> bool:
     """
-    This class is the min operator class.
+    This method checks the format of the max operator in the formula.
+    :param: formula_list: the formula list.
+    :return: True if the format is valid, False otherwise.
     """
-
-    def __init__(self):
-        super().__init__()
-        self.operator = "&"
-
-    def calculate_formula(self, formula_list):
-        """
-        This method calculates the formula (min(num1, num2)).
-        :param: formula_list: the formula list.
-        :return: the result of the calculation.
-        """
-        return min(formula_list[0], formula_list[2])
+    operator = "$"
+    return check_defult_format_operator_validation(operator, formula_list)
 
 
-class Average(Operator):
+def check_min_operator_validation(formula_list: list) -> bool:
     """
-    This class is the average operator class.
+    This method checks the format of the min operator in the formula.
+    :param: formula_list: the formula list.
+    :return: True if the format is valid, False otherwise.
     """
-
-    def __init__(self):
-        super().__init__()
-        self.operator = "@"
-
-    def calculate_formula(self, formula_list):
-        """
-        This method calculates the formula (average(num1, num2)).
-        :param: formula_list: the formula list.
-        :return: the result of the calculation.
-        """
-        return (formula_list[0] + formula_list[2]) / 2
+    operator = "#"
+    return check_defult_format_operator_validation(operator, formula_list)
 
 
-class Negative(Operator):
+def check_average_operator_validation(formula_list: list) -> bool:
     """
-    This class is the negative operator class.
+    This method checks the format of the avarege operator in the formula.
+    :param: formula_list: the formula list.
+    :return: True if the format is valid, False otherwise.
     """
-
-    def __init__(self):
-        super().__init__()
-        self.operator = "~"
-
-    def check_format_operator_validation(self, formula_list):
-        """
-        This method checks the format of the operator in the formula (overrides the method of Operator class).
-        :param: formula_list: the formula list.
-        :return: True if the format is valid, False otherwise.
-        """
-        return len(formula_list) == 2 and isinstance(formula_list[1], float)
-
-    def calculate_formula(self, formula_list):
-        """
-        This method calculates the formula (-num1).
-        :param: formula_list: the formula list.
-        :return: the result of the calculation.
-        """
-        return -formula_list[1]
+    operator = "@"
+    return check_defult_format_operator_validation(operator, formula_list)
 
 
-class Factorial(Operator):
+def check_negative_operator_validation(formula_list: list) -> bool:
     """
-    This class is the factorial operator class.
+    This method checks the format of the negate operator in the formula.
+    :param: formula_list: the formula list.
+    :return: True if the format is valid, False otherwise.
     """
+    operator = "~"
+    return len(formula_list) == 2 and isinstance(formula_list[0], float) and formula_list[1] == operator
 
-    def __init__(self):
-        super().__init__()
-        self.operator = "!"
 
-    def check_format_operator_validation(self, formula_list):
-        """
-        This method checks the format of the operator in the formula (overrides the method of Operator class).
-        :param: formula_list: the formula list.
-        :return: True if the format is valid, False otherwise.
-        """
-        check_if_num_is_natural = float(formula_list[0]) % 1 == 0 and float(formula_list[0]) >= 0
-        return len(formula_list) == 2 and isinstance(formula_list[0], float) and check_if_num_is_natural
-
-    def calculate_formula(self, formula_list):
-        """
-        This method calculates the formula (num1!).
-        :param: formula_list: the formula list.
-        :return: the result of the calculation.
-        """
-        factorial_result = 1
-        for index in range(1, int(formula_list[0]) + 1):
-            factorial_result *= index
-        return float(factorial_result)
+def check_operator_validation(operator: str, formula_list: list) -> bool:
+    """
+    This method checks the format of the operator in the formula.
+    :param: formula_list: the formula list.
+    :param: operator: the operator that is given to the function.
+    :return: True if the format is valid, False otherwise.
+    """
+    operators_validation_dict = {"+": check_plus_operator_validation, "-": check_minus_operator_validation,
+                                 "*": check_multiply_operator_validation, "/": check_divide_operator_validation,
+                                 "^": check_power_operator_validation, "%": check_modulo_operator_validation,
+                                 "!": check_factorial_operator_validation, "~": check_negative_operator_validation,
+                                 "$": check_max_operator_validation, "#": check_min_operator_validation,
+                                 "@": check_average_operator_validation}
+    return operators_validation_dict[operator](formula_list)
