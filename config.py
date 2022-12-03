@@ -3,6 +3,7 @@ Auther: Uri Sorek
 Date:
 Description: configuration file for the calculator.
 """
+BRACKETS_LIST = [("(", ")")]
 
 BINARY_OPERATORS_LIST = ["-", "+", "*", "/", "^", "&", "$", "@"]
 UNARY_OPERATORS_LIST_LEFT = ["~", "#"]
