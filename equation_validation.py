@@ -4,7 +4,7 @@ Date:
 
 Description: this module contains formula validation check for the input string (what to calculate).
 """
-import config
+from config import BRACKETS_LIST
 
 
 def check_equation_validation(equation: str) -> bool:
@@ -13,7 +13,10 @@ def check_equation_validation(equation: str) -> bool:
     :param: equation: the equation.
     :return: True if the equation is valid, False otherwise.
     """
-    pass
+    # TODO: exceptions for missing operators and brackets
+    if check_spaces_between_numbers(equation) or not check_brackets_validation(equation):
+        return False
+    return True
 
 
 def check_spaces_between_numbers(equation: str) -> bool:
@@ -40,7 +43,7 @@ def check_brackets_validation(equation: str) -> bool:
     :return: True if the brackets are valid, False otherwise.
     """
     brackets_stck = []
-    for opener, closer in config.BRACKETS_LIST:
+    for opener, closer in BRACKETS_LIST:
         # for each bracket in the equation
         for char in equation:
             # if the char is an opener, add it to the stack
