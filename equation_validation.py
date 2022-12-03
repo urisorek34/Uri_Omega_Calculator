@@ -13,7 +13,10 @@ def check_equation_validation(equation: str) -> bool:
     :param: equation: the equation.
     :return: True if the equation is valid, False otherwise.
     """
-    pass
+    # TODO: exceptions for missing operators and brackets
+    if check_spaces_between_numbers(equation) or not check_brackets_validation(equation):
+        return False
+    return True
 
 
 def check_spaces_between_numbers(equation: str) -> bool:
