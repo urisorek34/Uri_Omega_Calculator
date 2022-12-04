@@ -28,13 +28,19 @@ def convert_priority_dict_to_same_priority_list() -> list:
     return priority_list_reversed
 
 
-def convert_numbers_to_float(number_string: str) -> float:
+def convert_number_to_float(number_string: str) -> float:
     """
-    the function converts numbers to float.
-    :param: number_string:
-    :return:
+    the function converts a string number to float.
+    :param: number_string: the string that suppose to be a number.
+    :return: the number converted to float.
     """
-    pass
+
+    if number_string.count(".") > 1:
+        raise ValueError("missing operator")  # TODO: right exception (missing operator exception)
+    try:
+        return float(number_string)
+    except ValueError:
+        raise ValueError("missing operator")  # TODO: right exception (missing operator exception)
 
 
 def pack_formula_to_list_right_unary(operator: str, operand: str) -> list:
