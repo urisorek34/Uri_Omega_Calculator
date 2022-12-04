@@ -47,6 +47,16 @@ def pack_formula_to_list_right_unary(operator: str, operand: str) -> list:
     pass
 
 
+def pack_formula_to_list_brackets(operator: str, operand: str) -> list:
+    """
+    pack brackets to list.
+    :param operator: the operator
+    :param operand: the operand
+    :return: the packed list.
+    """
+    pass
+
+
 def pack_formula_to_list_left_unary(operator: str, operand: str) -> list:
     """
     pack left unary formula to list
