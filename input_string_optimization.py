@@ -54,14 +54,28 @@ def pack_formula_to_list_right_unary(operator: str, operand: str) -> list:
     pass
 
 
-def pack_formula_to_list_brackets(operator: str, operand: str) -> list:
+def pack_formula_to_list_brackets(equation: str, lst: list) -> list:
     """
-    pack brackets to list.
-    :param operator: the operator
-    :param operand: the operand
-    :return: the packed list.
+    pack brackets to list using recursion.
+    :param lst: the list to pack to.
+    :param equation: the equation string.
+    :return: list of lists with brackets inside.
     """
-    pass
+    # if there are no more brackets
+    if equation.count("(") == 0:
+        return [equation.replace(")", "")]
+    # get the string until the left bracket
+    equation_until_left_bracket = equation[:equation.index("(")]
+    # get the string from the left bracket
+    equation_after_left_bracket = equation[equation.index("(") + 1:]
+    # append to the list the string until the left bracket
+    lst.append(equation_until_left_bracket)
+    # append to the list a call to the function with the string after the left bracket
+    lst.append(pack_formula_to_list_brackets(equation_after_left_bracket, []))
+    # if the first char is a left bracket
+    if lst[0] == "":
+        lst.pop(0)
+    return lst
 
 
 def pack_formula_to_list_left_unary(operator: str, operand: str) -> list:
