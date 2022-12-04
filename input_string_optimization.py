@@ -110,6 +110,19 @@ def reduce_minuses(equation: str) -> str:
     :param equation: the given equation string
     :return: the new string with reduced minuses.
     """
+    equation_replaced_unary_minus = replace_minus_with_unary_minus(equation)
+    minus_index = equation_replaced_unary_minus.find("u")
+    while minus_index != -1:
+        count_minuses = 1
+        # count the minuses
+        while equation_replaced_unary_minus[minus_index + 1] == "u":
+            equation_replaced_unary_minus = equation_replaced_unary_minus.replace("u", "", 1)
+            count_minuses += 1
+        # if the number of minuses is even then the number is positive and the unary minus is redundant
+        if count_minuses % 2 == 0:
+            equation_replaced_unary_minus = equation_replaced_unary_minus.replace("u", "", 1)
+        minus_index = equation_replaced_unary_minus.find("u", minus_index + 1)
+    return equation_replaced_unary_minus
 
 
 def convert_string_to_formula_list(equation: str) -> list:
