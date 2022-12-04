@@ -9,12 +9,23 @@ from config import PRIORITY_DICT
 from equation_validation import check_equation_validation
 
 
-def convert_priority_dict_to_tuple_list() -> list:
+def convert_priority_dict_to_same_priority_list() -> list:
     """
-    convert the priority dictionary to a tuple list.
+    convert the priority dictionary to a lists of the same priority.
     :return: the tuples list.
     """
-    pass
+    dict_list_same_priority = {}
+    # sort the priority dict
+    sorted_priority_dict = dict(sorted(PRIORITY_DICT.keys()))
+    for operator, priority in sorted_priority_dict:
+        if priority not in dict_list_same_priority.keys():
+            dict_list_same_priority[priority] = [operator]
+        else:
+            dict_list_same_priority[priority].append(operator)
+    # reverse the operators that are sorted by priority
+    priority_list_reversed = list(dict_list_same_priority.values())
+    priority_list_reversed.reverse()
+    return priority_list_reversed
 
 
 def convert_numbers_to_float(number_string: str) -> float:
