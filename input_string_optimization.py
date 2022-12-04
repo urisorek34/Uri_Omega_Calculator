@@ -84,13 +84,30 @@ def pack_formula_to_list_binary(operand_one: str, operator: str, operand_two: st
     pass
 
 
+def replace_minus_with_unary_minus(equation: str) -> str:
+    """
+    replace the minus with unary minus.
+    :param equation: the equation string.
+    :return: the equation string with unary minus.
+    """
+    first_minus_index = equation.find("-")
+    while first_minus_index != -1:
+        if first_minus_index == 0:
+            # if the first char is a minus, replace it with unary minus
+            equation = equation.replace("-", "u-", 1)
+        elif equation[first_minus_index - 1] in PRIORITY_DICT.keys():
+            # if the minus is after an operator, replace it with unary minus
+            equation = equation.replace("-", "u-", 1)
+        first_minus_index = equation.find("-", first_minus_index + 1)
+    return equation
+
+
 def reduce_minuses(equation: str) -> str:
     """
     return equation with reduced minuses (unary minus).
     :param equation: the given equation string
     :return: the new string with reduced minuses.
     """
-    pass
 
 
 def convert_string_to_formula_list(equation: str) -> list:
