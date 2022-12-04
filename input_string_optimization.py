@@ -38,6 +38,7 @@ def convert_number_to_float(number_string: str) -> float:
     if number_string.count(".") > 1:
         raise ValueError("missing operator")  # TODO: right exception (missing operator exception)
     try:
+        number_string = number_string.replace("u", "-")
         return float(number_string)
     except ValueError:
         raise ValueError("missing operator")  # TODO: right exception (missing operator exception)
