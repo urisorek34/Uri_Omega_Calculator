@@ -91,6 +91,7 @@ def convert_equation_to_numbers_and_operators(equation: str) -> list:
     :param: equation: the equation list.
     :return: the formula list in postfix format.
     """
+    check_equation_validation(equation)
     equation = reduce_minuses(equation)
     equation_lst = []
     index = 0
@@ -138,3 +139,5 @@ def convert_string_from_infix_to_postfix(equation: str) -> list:
         # pop the stack until it is empty and add the operators to the postfix equation
         postfix_equation.append(stack.pop())
     return postfix_equation
+
+
