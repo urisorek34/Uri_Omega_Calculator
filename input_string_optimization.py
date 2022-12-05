@@ -51,16 +51,17 @@ def replace_minus_with_unary_minus(equation: str) -> str:
     :return: the equation string with unary minus.
     """
     equation_list = list(equation)
-    minus_index = equation_list.index("-")
-    while minus_index != -1:
-        if minus_index == 0:
-            # if the first char is a minus, replace it with unary minus
-            equation_list[minus_index] = "u"
-        elif equation_list[minus_index - 1] in PRIORITY_DICT.keys() or equation_list[minus_index - 1] == "(" or \
-                equation_list[minus_index - 1] == "u":
-            # if the minus is after an operator, replace it with unary minus
-            equation_list[minus_index] = "u"
-        minus_index = equation.find("-", minus_index + 1)
+    if "-" in equation_list:
+        minus_index = equation_list.index("-")
+        while minus_index != -1:
+            if minus_index == 0:
+                # if the first char is a minus, replace it with unary minus
+                equation_list[minus_index] = "u"
+            elif equation_list[minus_index - 1] in PRIORITY_DICT.keys() or equation_list[minus_index - 1] == "(" or \
+                    equation_list[minus_index - 1] == "u":
+                # if the minus is after an operator, replace it with unary minus
+                equation_list[minus_index] = "u"
+            minus_index = equation.find("-", minus_index + 1)
     return "".join(equation_list)
 
 
