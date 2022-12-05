@@ -16,8 +16,7 @@ def convert_priority_dict_to_same_priority_list() -> list:
     """
     dict_list_same_priority = {}
     # sort the priority dict
-    sorted_priority_dict = dict(sorted(PRIORITY_DICT.keys()))
-    for operator, priority in sorted_priority_dict:
+    for operator, priority in PRIORITY_DICT.items():
         if priority not in dict_list_same_priority.keys():
             dict_list_same_priority[priority] = [operator]
         else:
@@ -101,7 +100,8 @@ def convert_equation_to_numbers_and_operators(equation: str) -> list:
             equation_lst.append(equation[index])
             index += 1
         else:
-            while index != len(equation) and equation[index] not in PRIORITY_DICT.keys():
+            while index != len(equation) and equation[index] not in PRIORITY_DICT.keys() and equation[index] != "(" and \
+                    equation[index] != ")":
                 number += equation[index]
                 index += 1
             equation_lst.append(convert_number_to_float(number))
@@ -109,9 +109,32 @@ def convert_equation_to_numbers_and_operators(equation: str) -> list:
     return equation_lst
 
 
-def convert_string_from_infix_to_postfix(equation: list) -> list:
+def convert_string_from_infix_to_postfix(equation: str) -> list:
     """
     This method converts the equation string from infix to a postfix of the formula.
     :param: equation: the equation list.
     :return: the formula list in postfix format.
     """
+    postfix_equation = []
+    stack = []
+    converted_equation = convert_equation_to_numbers_and_operators(equation)
+    for element in converted_equation:
+        # if the element is a number, add it to the postfix equation
+        if isinstance(element, float):
+            postfix_equation.append(element)
+        elif element == "(":
+            stack.append(element)
+        elif element == ")":
+            while stack[-1] != "(":
+                # pop the stack until the first "("
+                postfix_equation.append(stack.pop())
+            stack.pop()
+        else:
+            while stack and stack[-1] != "(" and PRIORITY_DICT[element] <= PRIORITY_DICT[stack[-1]]:
+                # pop the stack until the first "(" or until the operator in the stack has lower priority
+                postfix_equation.append(stack.pop())
+            stack.append(element)
+    while stack:
+        # pop the stack until it is empty and add the operators to the postfix equation
+        postfix_equation.append(stack.pop())
+    return postfix_equation
