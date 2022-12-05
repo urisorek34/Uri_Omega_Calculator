@@ -5,7 +5,7 @@ Date:
 Description: this module contains formula validation check for the input string (what to calculate).
 """
 
-from config import PRIORITY_DICT
+from config import PRIORITY_DICT, BRACKETS_LIST
 from equation_validation import check_equation_validation
 
 
@@ -85,19 +85,32 @@ def reduce_minuses(equation: str) -> str:
     return equation_replaced_unary_minus
 
 
-def convert_list_to_numbers_and_operators(equation_lst: list) -> list:
+def convert_equation_to_numbers_and_operators(equation: str) -> list:
     """
     This method converts the equation list to a list of numbers and operators.
-    :param: equation_lst: the equation list.
+    :param: equation: the equation list.
     :return: the formula list in postfix format.
     """
-    pass
+    equation = reduce_minuses(equation)
+    equation_lst = []
+    index = 0
+    while index != len(equation):
+        number = ""
+        if equation[index] in PRIORITY_DICT.keys() or equation[index] == "(" or equation[index] == ")":
+            equation_lst.append(equation[index])
+            index += 1
+        else:
+            while index != len(equation) and equation[index] not in PRIORITY_DICT.keys():
+                number += equation[index]
+                index += 1
+            equation_lst.append(convert_number_to_float(number))
+
+    return equation_lst
 
 
-def convert_string_to_postfix(equation: str) -> list:
+def convert_string_from_infix_to_postfix(equation: list) -> list:
     """
-    This method converts the equation string to a postfix of the formula.
-    :param: equation: the equation string.
+    This method converts the equation string from infix to a postfix of the formula.
+    :param: equation: the equation list.
     :return: the formula list in postfix format.
     """
-    pass
