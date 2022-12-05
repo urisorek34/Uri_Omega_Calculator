@@ -44,61 +44,6 @@ def convert_number_to_float(number_string: str) -> float:
         raise ValueError("missing operator")  # TODO: right exception (missing operator exception)
 
 
-def pack_formula_to_list_right_unary(operator: str, operand: str) -> list:
-    """
-    pack right unary formula to list
-    :param operator: the operator
-    :param operand: the operand
-    :return: the packed list.
-    """
-    pass
-
-
-def pack_formula_to_list_brackets(equation: str, lst: list) -> list:
-    """
-    pack brackets to list using recursion.
-    :param lst: the list to pack to.
-    :param equation: the equation string.
-    :return: list of lists with brackets inside.
-    """
-    # if there are no more brackets
-    if equation.count("(") == 0:
-        return [equation.replace(")", "")]
-    # get the string until the left bracket
-    equation_until_left_bracket = equation[:equation.index("(")]
-    # get the string from the left bracket
-    equation_after_left_bracket = equation[equation.index("(") + 1:]
-    # append to the list the string until the left bracket
-    lst.append(equation_until_left_bracket)
-    # append to the list a call to the function with the string after the left bracket
-    lst.append(pack_formula_to_list_brackets(equation_after_left_bracket, []))
-    # if the first char is a left bracket
-    if lst[0] == "":
-        lst.pop(0)
-    return lst
-
-
-def pack_formula_to_list_left_unary(operator: str, operand: str) -> list:
-    """
-    pack left unary formula to list
-    :param operator: the operator
-    :param operand: the operand
-    :return: the packed list.
-    """
-    pass
-
-
-def pack_formula_to_list_binary(operand_one: str, operator: str, operand_two: str) -> list:
-    """
-    pack binary formula to list
-    :param operand_one: the first operand
-    :param operator: the operator
-    :param operand_two: the second operand
-    :return:
-    """
-    pass
-
-
 def replace_minus_with_unary_minus(equation: str) -> str:
     """
     replace the minus with unary minus.
@@ -140,10 +85,19 @@ def reduce_minuses(equation: str) -> str:
     return equation_replaced_unary_minus
 
 
-def convert_string_to_formula_list(equation: str) -> list:
+def convert_list_to_numbers_and_operators(equation_lst: list) -> list:
     """
-    This method converts the equation string to a list of the formula.
-    :param: equation: the equation.
-    :return: the formula list.
+    This method converts the equation list to a list of numbers and operators.
+    :param: equation_lst: the equation list.
+    :return: the formula list in postfix format.
+    """
+    pass
+
+
+def convert_string_to_postfix(equation: str) -> list:
+    """
+    This method converts the equation string to a postfix of the formula.
+    :param: equation: the equation string.
+    :return: the formula list in postfix format.
     """
     pass
