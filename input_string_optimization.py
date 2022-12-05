@@ -5,7 +5,7 @@ Date:
 Description: this module contains formula validation check for the input string (what to calculate).
 """
 
-from config import PRIORITY_DICT, BRACKETS_LIST
+from config import PRIORITY_DICT, OPENER_BRACKET, CLOSER_BRACKET
 from equation_validation import check_equation_validation
 
 
@@ -97,12 +97,13 @@ def convert_equation_to_numbers_and_operators(equation: str) -> list:
     index = 0
     while index != len(equation):
         number = ""
-        if equation[index] in PRIORITY_DICT.keys() or equation[index] == "(" or equation[index] == ")":
+        if equation[index] in PRIORITY_DICT.keys() or equation[index] == OPENER_BRACKET or equation[
+            index] == CLOSER_BRACKET:
             equation_lst.append(equation[index])
             index += 1
         else:
-            while index != len(equation) and equation[index] not in PRIORITY_DICT.keys() and equation[index] != "(" and \
-                    equation[index] != ")":
+            while index != len(equation) and equation[index] not in PRIORITY_DICT.keys() and equation[index] != OPENER_BRACKET and \
+                    equation[index] != CLOSER_BRACKET:
                 number += equation[index]
                 index += 1
             equation_lst.append(convert_number_to_float(number))
@@ -123,15 +124,15 @@ def convert_string_from_infix_to_postfix(equation: str) -> list:
         # if the element is a number, add it to the postfix equation
         if isinstance(element, float):
             postfix_equation.append(element)
-        elif element == "(":
+        elif element == OPENER_BRACKET:
             stack.append(element)
-        elif element == ")":
-            while stack[-1] != "(":
+        elif element == CLOSER_BRACKET:
+            while stack[-1] != OPENER_BRACKET:
                 # pop the stack until the first "("
                 postfix_equation.append(stack.pop())
             stack.pop()
         else:
-            while stack and stack[-1] != "(" and PRIORITY_DICT[element] <= PRIORITY_DICT[stack[-1]]:
+            while stack and stack[-1] != OPENER_BRACKET and PRIORITY_DICT[element] <= PRIORITY_DICT[stack[-1]]:
                 # pop the stack until the first "(" or until the operator in the stack has lower priority
                 postfix_equation.append(stack.pop())
             stack.append(element)
@@ -139,5 +140,3 @@ def convert_string_from_infix_to_postfix(equation: str) -> list:
         # pop the stack until it is empty and add the operators to the postfix equation
         postfix_equation.append(stack.pop())
     return postfix_equation
-
-
