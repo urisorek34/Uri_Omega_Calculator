@@ -97,7 +97,7 @@ def calculate_max_formula(formula_list: list) -> float:
     :param: formula_list: the formula list.
     :return: the result of the calculation.
     """
-    return max(formula_list[1], formula_list[3])
+    return max(formula_list[0], formula_list[2])
 
 
 def calculate_min_formula(formula_list: list) -> float:
@@ -107,7 +107,7 @@ def calculate_min_formula(formula_list: list) -> float:
     :param: formula_list: the formula list.
     :return: the result of the calculation.
     """
-    return min(formula_list[1], formula_list[3])
+    return min(formula_list[0], formula_list[2])
 
 
 def calculate_average_formula(formula_list: list) -> float:
@@ -117,7 +117,7 @@ def calculate_average_formula(formula_list: list) -> float:
     :param: formula_list: the formula list.
     :return: the result of the calculation.
     """
-    return (formula_list[1] + formula_list[3]) / 2
+    return (formula_list[0] + formula_list[2]) / 2
 
 
 def calculate_add_digits_formula(formula_list: list) -> float:
@@ -127,7 +127,7 @@ def calculate_add_digits_formula(formula_list: list) -> float:
     :param: formula_list: the formula list.
     :return: the result of the calculation.
     """
-    number_string = str(formula_list[1])
+    number_string = str(formula_list[0])
     factor = 1
     if number_string[0] == "-":
         factor = -1
