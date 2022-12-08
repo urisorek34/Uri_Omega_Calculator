@@ -54,3 +54,16 @@ class MissingBracketError(SyntaxEquationError):
 
     def __str__(self):
         return super().__str__() + " missing bracket: " + self.message
+
+
+class MissingOperandError(SyntaxEquationError):
+    """
+    This class represents the missing operand error.
+    inherits from SyntaxEquationError.
+    """
+
+    def __init__(self, message):
+        super().__init__(message)
+
+    def __str__(self):
+        return super().__str__() + " missing operand: " + self.message
