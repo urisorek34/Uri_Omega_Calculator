@@ -26,7 +26,7 @@ def format_left_unary_operator_validation(operator: str, formula_list: list) -> 
     :param: operator: the operator that is given to the function.
     :return: True if the format is valid, False otherwise.
     """
-    return len(formula_list) == 2 and isinstance(formula_list[0], float) and formula_list[1] == operator
+    return len(formula_list) == 2 and isinstance(formula_list[1], float) and formula_list[0] == operator
 
 
 def format_right_unary_operator_validation(operator: str, formula_list: list) -> bool:
@@ -36,7 +36,7 @@ def format_right_unary_operator_validation(operator: str, formula_list: list) ->
     :param: operator: the operator that is given to the function.
     :return: True if the format is valid, False otherwise.
     """
-    return len(formula_list) == 2 and isinstance(formula_list[1], float) and formula_list[0] == operator
+    return len(formula_list) == 2 and isinstance(formula_list[0], float) and formula_list[1] == operator
 
 
 def check_operator_validation(operator: str, formula_list: list) -> bool:
