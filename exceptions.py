@@ -15,7 +15,7 @@ class SyntaxEquationError(Exception):
         self.message = message
 
     def __str__(self):
-        return "Syntax Error!"
+        return "Syntax Error!\n"
 
 
 class MathEquationError(Exception):
@@ -27,4 +27,17 @@ class MathEquationError(Exception):
         self.message = message
 
     def __str__(self):
-        return "Math Error!"
+        return "Math Error!\n"
+
+
+class MissingOperatorError(SyntaxEquationError):
+    """
+    This class represents the missing operator error.
+    inherits from SyntaxEquationError.
+    """
+
+    def __init__(self, message):
+        super().__init__(message)
+
+    def __str__(self):
+        return super().__str__() + " missing operator: " + self.message
