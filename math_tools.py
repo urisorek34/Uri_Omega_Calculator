@@ -5,6 +5,7 @@ Description: this module contains the nontrivial math tools for calculating.
 """
 
 from math import pow
+from exceptions import FloatFactorialError, NegativeFactorialError
 
 
 def factorial(num: float) -> float:
@@ -14,9 +15,9 @@ def factorial(num: float) -> float:
     :return: the factorial of the number.
     """
     if num < 0:
-        raise ValueError("factorial of negative number")  # TODO: add exception
+        raise NegativeFactorialError
     if num % 1 != 0:
-        raise ValueError("factorial of float number")  # TODO: add exception
+        raise FloatFactorialError
     if num == 0:
         return 1
     return num * factorial(num - 1)
