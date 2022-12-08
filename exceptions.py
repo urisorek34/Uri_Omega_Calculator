@@ -85,7 +85,7 @@ class FactorialError(MathEquationError):
 class NegativeFactorialError(FactorialError):
     """
     This class represents the negative factorial error.
-    inherits from MathEquationError.
+    inherits from FactorialError.
     """
 
     def __init__(self, message):
@@ -98,7 +98,7 @@ class NegativeFactorialError(FactorialError):
 class FloatFactorialError(FactorialError):
     """
     This class represents the float factorial error.
-    inherits from MathEquationError.
+    inherits from FactorialError.
     """
 
     def __init__(self, message):
