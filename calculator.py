@@ -5,8 +5,9 @@ Date:
 Description: this module contains the calculator class.
 """
 from calculate_operators_by_formula import calculate_formula
-from config import UNARY_OPERATORS_LIST_LEFT,UNARY_OPERATORS_LIST_RIGHT
-from check_formula_operators import check_operator_validation
+from config import UNARY_OPERATORS_LIST_LEFT, UNARY_OPERATORS_LIST_RIGHT
+from input_string_optimization import convert_string_from_infix_to_postfix
+from exceptions import MissingOperandError
 
 
 def calculate_postfix(postfix_list: list) -> float:
@@ -21,6 +22,9 @@ def calculate_postfix(postfix_list: list) -> float:
             # if the item is a number, push it to the stack.
             stack.append(item)
         else:
+            if not stack:
+                # if the stack is empty, raise appropriate exception.
+                raise MissingOperandError(item + " is missing operand.")
             # if the item is an operator.
             if item in UNARY_OPERATORS_LIST_LEFT:
                 # if the operator is unary operator from the left.
