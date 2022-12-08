@@ -152,5 +152,3 @@ def calculate_formula(formula: list) -> float:
         return operators_calculations[formula[0]](formula)
     elif check_operator_validation(formula[1], formula):
         return operators_calculations[formula[1]](formula)
-    else:
-        raise Exception("Invalid formula")  # TODO: change to specific exception
