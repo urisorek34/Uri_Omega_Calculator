@@ -93,3 +93,16 @@ class NegativeFactorialError(FactorialError):
 
     def __str__(self):
         return super().__str__() + " negative factorial is not allowed: " + self.message
+
+
+class FloatFactorialError(FactorialError):
+    """
+    This class represents the float factorial error.
+    inherits from MathEquationError.
+    """
+
+    def __init__(self, message):
+        super().__init__(message)
+
+    def __str__(self):
+        return super().__str__() + " float factorial is not allowed: " + self.message
