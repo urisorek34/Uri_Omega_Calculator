@@ -15,9 +15,9 @@ def factorial(num: float) -> float:
     :return: the factorial of the number.
     """
     if num < 0:
-        raise NegativeFactorialError
+        raise NegativeFactorialError(str(num) + " is negative number.")
     if num % 1 != 0:
-        raise FloatFactorialError
+        raise FloatFactorialError(str(num) + " is float number.")
     if num == 0:
         return 1
     return num * factorial(num - 1)
