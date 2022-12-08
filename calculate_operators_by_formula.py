@@ -127,8 +127,12 @@ def calculate_add_digits_formula(formula_list: list) -> float:
     :param: formula_list: the formula list.
     :return: the result of the calculation.
     """
-    # TODO: specific calculation
-    return sum([int(digit) for digit in str(formula_list[1])])
+    number_string = str(formula_list[1])
+    factor = 1
+    if number_string[0] == "-":
+        factor = -1
+        number_string = number_string[1:]
+    return sum([int(digit) * factor for digit in number_string])
 
 
 def calculate_formula(formula: list) -> float:
@@ -143,9 +147,9 @@ def calculate_formula(formula: list) -> float:
                               "!": calculate_factorial_formula, "~": calculate_negative_formula,
                               "$": calculate_max_formula, "&": calculate_min_formula,
                               "@": calculate_average_formula, "#": calculate_add_digits_formula}
-    if formula[0] in UNARY_OPERATORS_LIST_LEFT:
-        if check_operator_validation(formula[0], formula):
-            return operators_calculations[formula[0]](formula)
+
+    if formula[0] in UNARY_OPERATORS_LIST_LEFT and check_operator_validation(formula[0], formula):
+        return operators_calculations[formula[0]](formula)
     elif check_operator_validation(formula[1], formula):
         return operators_calculations[formula[1]](formula)
     else:
