@@ -67,3 +67,16 @@ class MissingOperandError(SyntaxEquationError):
 
     def __str__(self):
         return super().__str__() + " missing operand: " + self.message
+
+
+class NegativeFactorialError(MathEquationError):
+    """
+    This class represents the negative factorial error.
+    inherits from MathEquationError.
+    """
+
+    def __init__(self, message):
+        super().__init__(message)
+
+    def __str__(self):
+        return super().__str__() + " negative factorial is not allowed: " + self.message
