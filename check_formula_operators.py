@@ -5,6 +5,7 @@ Description: this module contains the operators' validation check for checking v
 """
 
 from config import BINARY_OPERATORS_LIST, UNARY_OPERATORS_LIST_LEFT, UNARY_OPERATORS_LIST_RIGHT
+from exceptions import InvalidOperatorError
 
 
 def format_binary_operator_validation(operator: str, formula_list: list) -> bool:
@@ -53,4 +54,4 @@ def check_operator_validation(operator: str, formula_list: list) -> bool:
         return format_left_unary_operator_validation(operator, formula_list)
     elif operator in UNARY_OPERATORS_LIST_RIGHT:
         return format_right_unary_operator_validation(operator, formula_list)
-    # raise NoSuchOperatorError() # TODO
+    raise InvalidOperatorError(operator)

@@ -7,6 +7,7 @@ Description: this module contains formula validation check for the input string 
 
 from config import PRIORITY_DICT, OPENER_BRACKET, CLOSER_BRACKET
 from equation_validation import check_equation_validation
+from exceptions import MissingOperatorError
 
 
 def convert_priority_dict_to_same_priority_list() -> list:
@@ -35,12 +36,12 @@ def convert_number_to_float(number_string: str) -> float:
     """
 
     if number_string.count(".") > 1:
-        raise ValueError("missing operator")  # TODO: right exception (missing operator exception)
+        raise MissingOperatorError(number_string)
     try:
         number_string = number_string.replace("u", "-")
         return float(number_string)
     except ValueError:
-        raise ValueError("missing operator")  # TODO: right exception (missing operator exception)
+        raise MissingOperatorError(number_string)
 
 
 def replace_minus_with_unary_minus(equation: str) -> str:
@@ -102,7 +103,8 @@ def convert_equation_to_numbers_and_operators(equation: str) -> list:
             equation_lst.append(equation[index])
             index += 1
         else:
-            while index != len(equation) and equation[index] not in PRIORITY_DICT.keys() and equation[index] != OPENER_BRACKET and \
+            while index != len(equation) and equation[index] not in PRIORITY_DICT.keys() and equation[
+                index] != OPENER_BRACKET and \
                     equation[index] != CLOSER_BRACKET:
                 number += equation[index]
                 index += 1

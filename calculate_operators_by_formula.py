@@ -7,6 +7,7 @@ Description: this module contains the operators' calculations.
 from check_formula_operators import check_operator_validation
 from math_tools import factorial, pow
 from config import UNARY_OPERATORS_LIST_LEFT
+from exceptions import ZeroDivisionCalculatorError
 
 
 def calculate_minus_formula(formula_list: list) -> float:
@@ -46,7 +47,8 @@ def calculate_divide_formula(formula_list: list) -> float:
     :param: formula_list: the formula list.
     :return: the result of the calculation.
     """
-
+    if formula_list[2] == 0:
+        raise ZeroDivisionCalculatorError("".join(formula_list))
     return formula_list[0] / formula_list[2]
 
 
@@ -152,5 +154,3 @@ def calculate_formula(formula: list) -> float:
         return operators_calculations[formula[0]](formula)
     elif check_operator_validation(formula[1], formula):
         return operators_calculations[formula[1]](formula)
-    else:
-        raise Exception("Invalid formula")  # TODO: change to specific exception
