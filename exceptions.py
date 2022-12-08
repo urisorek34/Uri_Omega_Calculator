@@ -106,3 +106,16 @@ class FloatFactorialError(FactorialError):
 
     def __str__(self):
         return super().__str__() + " float factorial is not allowed: " + self.message
+
+
+class ZeroDivisionCalculatorError(MathEquationError):
+    """
+    This class represents the zero division error.
+    inherits from MathEquationError.
+    """
+
+    def __init__(self, message):
+        super().__init__(message)
+
+    def __str__(self):
+        return super().__str__() + " zero division error: " + self.message
