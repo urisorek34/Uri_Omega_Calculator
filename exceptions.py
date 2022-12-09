@@ -132,3 +132,16 @@ class InvalidOperatorError(SyntaxEquationError):
 
     def __str__(self):
         return super().__str__() + " invalid operator: " + self.message
+
+
+class TildaError(SyntaxEquationError):
+    """
+    This class represents the tilda error.
+    inherits from SyntaxEquationError.
+    """
+
+    def __init__(self, message):
+        super().__init__(message)
+
+    def __str__(self):
+        return super().__str__() + " tilda ('~') error: " + self.message

@@ -7,7 +7,7 @@ Description: this module contains formula validation check for the input string 
 
 from config import PRIORITY_DICT, OPENER_BRACKET, CLOSER_BRACKET
 from equation_validation import check_equation_validation
-from exceptions import MissingOperatorError
+from exceptions import MissingOperatorError, TildaError
 
 
 def convert_priority_dict_to_same_priority_list() -> list:
@@ -86,6 +86,18 @@ def reduce_minuses(equation: str) -> str:
     return equation_replaced_unary_minus
 
 
+def check_tilda_validation(equation: str) -> None:
+    """
+    This method checks the validation of the tilda in the equation (~ has to be in the left to a number).
+    :param: equation: the equation.
+    :return: True if the tilda is valid, False otherwise.
+    :raise: TildaError if the tilda is not valid.
+    """
+    for index, element in enumerate(equation):
+        if element == "~" and equation[index + 1] in PRIORITY_DICT.keys():
+            raise TildaError(element)
+
+
 def convert_equation_to_numbers_and_operators(equation: str) -> list:
     """
     This method converts the equation list to a list of numbers and operators.
@@ -94,6 +106,7 @@ def convert_equation_to_numbers_and_operators(equation: str) -> list:
     """
     check_equation_validation(equation)
     equation = reduce_minuses(equation)
+    check_tilda_validation(equation)
     equation_lst = []
     index = 0
     while index != len(equation):
