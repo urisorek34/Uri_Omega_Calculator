@@ -28,3 +28,16 @@ def menu_message() -> str:
     return message
 
 
+def get_input_string() -> str:
+    """
+    the function gets the input string from the user.
+    :return: the input string.
+    """
+    input_string = ""
+    try:
+        input_string = input("Please enter the equation you want to calculate:\n")
+    except EOFError:
+        print("EOFError --> assuming the user wants to exit")
+        exit(1)
+
+    return input_string
