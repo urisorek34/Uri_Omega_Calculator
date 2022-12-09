@@ -40,3 +40,13 @@ def calculate_postfix(postfix_list: list) -> float:
                 num1 = stack.pop()
                 stack.append(calculate_formula([num1, item, num2]))
     return stack.pop()
+
+
+def calculate(equation: str) -> float:
+    """
+    This method calculates the equation.
+    :param: equation: the equation.
+    :return: the result of the calculation.
+    """
+    postfix_list = convert_string_from_infix_to_postfix(equation)
+    return calculate_postfix(postfix_list)
