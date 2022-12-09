@@ -129,7 +129,8 @@ def calculate_add_digits_formula(formula_list: list) -> float:
     :param: formula_list: the formula list.
     :return: the result of the calculation.
     """
-    number_string = str(formula_list[0])
+    number_string = str(formula_list[1]).replace(".", "")
+    print(number_string)
     factor = 1
     if number_string[0] == "-":
         factor = -1
