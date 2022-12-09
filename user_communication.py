@@ -14,6 +14,8 @@ WELCOME_MESSAGE = "Welcome to the uri's Omega advanced calculator!\n " \
                   "For the exit press 'e' or 'E'.\n" \
                   "github link: https://github.com/urisorek34/Uri_Omega_Calculator \n"
 
+EXIT_MESSAGE = "Thank you for using uri's Omega calculator!\n"
+
 
 def menu_message() -> str:
     """
@@ -24,3 +26,5 @@ def menu_message() -> str:
     for operator, priority in PRIORITY_DICT.items():
         message += f"{operator} --> {priority}\n"
     return message
+
+
