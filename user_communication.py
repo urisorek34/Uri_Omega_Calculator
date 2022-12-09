@@ -5,6 +5,8 @@ Date:
 Description: this module contains the user communication.
 """
 from config import PRIORITY_DICT
+from calculator import calculate
+from exceptions import SyntaxEquationError, MathEquationError
 
 WELCOME_MESSAGE = "Welcome to the uri's Omega advanced calculator!\n " \
                   "This calculator gets an equation and returns it's result." \
@@ -38,6 +40,39 @@ def get_input_string() -> str:
         input_string = input("Please enter the equation you want to calculate:\n")
     except EOFError:
         print("EOFError --> assuming the user wants to exit")
+        print(EXIT_MESSAGE)
         exit(1)
 
     return input_string
+
+
+def get_result_with_exception_handling(input_string: str) -> str:
+    """
+    the function gets the result of the equation and handles the exceptions.
+    :param input_string: the input string.
+    :return: the result of the equation.
+    """
+    try:
+        result = calculate(input_string)
+        return f"the result of the equation is: {result}"
+    except SyntaxEquationError as syntax_error:
+        return str(syntax_error)
+    except MathEquationError as math_error:
+        return str(math_error)
+
+
+def communicate_with_user() -> None:
+    """
+    the function communicates with the user.
+    :return: None.
+    """
+    print(WELCOME_MESSAGE)
+    while True:
+        input_string = get_input_string()
+        if input_string.lower() == "e":
+            print(EXIT_MESSAGE)
+            break
+        elif input_string.lower() == "m":
+            print(menu_message())
+        else:
+            print(get_result_with_exception_handling(input_string))
