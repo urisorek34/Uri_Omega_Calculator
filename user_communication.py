@@ -8,7 +8,7 @@ from config import PRIORITY_DICT
 from calculator import calculate
 from exceptions import SyntaxEquationError, MathEquationError
 
-WELCOME_MESSAGE = "Welcome to the uri's Omega advanced calculator!\n " \
+WELCOME_MESSAGE = "Welcome to the uri's Omega advanced calculator!\n" \
                   "This calculator gets an equation and returns it's result." \
                   "In this calculator unary '-' is in first priority (is part of the number).\n" \
                   "The only brackets allowed are '()'.\n" \

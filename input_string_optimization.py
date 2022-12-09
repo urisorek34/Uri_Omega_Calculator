@@ -97,7 +97,7 @@ def check_tilda_validation(equation: str) -> None:
     """
     for index, element in enumerate(equation):
         if element == "~" and equation[index + 1] in PRIORITY_DICT.keys():
-            raise TildaError(element)
+            raise TildaError(equation)
 
 
 def convert_equation_to_numbers_and_operators(equation: str) -> list:

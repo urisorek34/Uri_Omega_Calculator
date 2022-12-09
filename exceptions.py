@@ -144,4 +144,4 @@ class TildaError(SyntaxEquationError):
         super().__init__(message)
 
     def __str__(self):
-        return super().__str__() + " tilda ('~') error: " + self.message
+        return super().__str__() + "tilda ('~') error (a number has to come after a tilda): " + self.message
