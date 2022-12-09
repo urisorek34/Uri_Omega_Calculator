@@ -7,7 +7,7 @@ Description: this module contains formula validation check for the input string 
 
 from config import PRIORITY_DICT, OPENER_BRACKET, CLOSER_BRACKET
 from equation_validation import check_equation_validation
-from exceptions import MissingOperatorError, TildaError,InvalidOperatorError
+from exceptions import MissingOperatorError, TildaError, InvalidOperatorError
 
 
 def convert_priority_dict_to_same_priority_list() -> list:
@@ -43,6 +43,7 @@ def convert_number_to_float(number_string: str) -> float:
     except ValueError:
         raise InvalidOperatorError(number_string)
 
+
 def replace_minus_with_unary_minus(equation: str) -> str:
     """
     replace the minus with unary minus.
@@ -50,6 +51,8 @@ def replace_minus_with_unary_minus(equation: str) -> str:
     :return: the equation string with unary minus.
     """
     equation_list = list(equation)
+    if "u" in equation_list:
+        raise InvalidOperatorError("u")
     if "-" in equation_list:
         minus_index = equation_list.index("-")
         while minus_index != -1:
