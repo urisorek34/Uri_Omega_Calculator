@@ -37,7 +37,7 @@ def get_input_string() -> str:
     """
     input_string = ""
     try:
-        input_string = input("Please enter the equation you want to calculate:\n")
+        input_string = input("Please enter the equation you want to calculate (press 'm' for menu and 'e' to exit):\n")
     except EOFError:
         print("EOFError --> assuming the user wants to exit")
         print(EXIT_MESSAGE)
@@ -59,6 +59,8 @@ def get_result_with_exception_handling(input_string: str) -> str:
         return str(syntax_error)
     except MathEquationError as math_error:
         return str(math_error)
+    finally:
+        print("You are welcome to try again!\n\n")
 
 
 def communicate_with_user() -> None:
