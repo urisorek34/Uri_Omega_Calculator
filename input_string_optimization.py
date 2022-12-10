@@ -10,24 +10,6 @@ from equation_validation import check_equation_validation
 from exceptions import MissingOperatorError, TildaError, InvalidOperatorError
 
 
-def convert_priority_dict_to_same_priority_list() -> list:
-    """
-    convert the priority dictionary to a lists of the same priority.
-    :return: the tuples list.
-    """
-    dict_list_same_priority = {}
-    # sort the priority dict
-    for operator, priority in PRIORITY_DICT.items():
-        if priority not in dict_list_same_priority.keys():
-            dict_list_same_priority[priority] = [operator]
-        else:
-            dict_list_same_priority[priority].append(operator)
-    # reverse the operators that are sorted by priority
-    priority_list_reversed = list(dict_list_same_priority.values())
-    priority_list_reversed.reverse()
-    return priority_list_reversed
-
-
 def convert_number_to_float(number_string: str) -> float:
     """
     the function converts a string number to float.
