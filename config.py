@@ -5,7 +5,7 @@ Description: configuration file for the calculator.
 """
 OPENER_BRACKET = '('
 CLOSER_BRACKET = ')'
-
+SIGN_MINUS = 'u'
 BINARY_OPERATORS_LIST = ["-", "+", "*", "/", "^", "&", "$", "@"]
 UNARY_OPERATORS_LIST_LEFT = ["~", "#"]
 UNARY_OPERATORS_LIST_RIGHT = ["!"]
