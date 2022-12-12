@@ -5,7 +5,7 @@ Date:
 Description: this module contains formula validation check for the input string (what to calculate).
 """
 
-from config import PRIORITY_DICT, OPENER_BRACKET, CLOSER_BRACKET
+from config import PRIORITY_DICT, OPENER_BRACKET, CLOSER_BRACKET,SIGN_MINUS
 from equation_validation import check_equation_validation
 from exceptions import MissingOperatorError, TildaError, InvalidOperatorError
 
@@ -20,7 +20,7 @@ def convert_number_to_float(number_string: str) -> float:
     if number_string.count(".") > 1:
         raise MissingOperatorError(number_string)
     try:
-        number_string = number_string.replace("u", "-")
+        number_string = number_string.replace(SIGN_MINUS, "-")
         return float(number_string)
     except ValueError:
         raise InvalidOperatorError(number_string)
@@ -33,18 +33,18 @@ def replace_minus_with_unary_minus(equation: str) -> str:
     :return: the equation string with unary minus.
     """
     equation_list = list(equation)
-    if "u" in equation_list:
-        raise InvalidOperatorError("u")
+    if SIGN_MINUS in equation_list:
+        raise InvalidOperatorError(SIGN_MINUS)
     if "-" in equation_list:
         minus_index = equation_list.index("-")
         while minus_index != -1:
             if minus_index == 0:
                 # if the first char is a minus, replace it with unary minus
-                equation_list[minus_index] = "u"
+                equation_list[minus_index] = SIGN_MINUS
             elif equation_list[minus_index - 1] in PRIORITY_DICT.keys() or equation_list[minus_index - 1] == "(" or \
-                    equation_list[minus_index - 1] == "u":
+                    equation_list[minus_index - 1] == SIGN_MINUS:
                 # if the minus is after an operator, replace it with unary minus
-                equation_list[minus_index] = "u"
+                equation_list[minus_index] = SIGN_MINUS
             minus_index = equation.find("-", minus_index + 1)
     return "".join(equation_list)
 
@@ -56,17 +56,17 @@ def reduce_minuses(equation: str) -> str:
     :return: the new string with reduced minuses.
     """
     equation_replaced_unary_minus = replace_minus_with_unary_minus(equation)
-    minus_index = equation_replaced_unary_minus.find("u")
+    minus_index = equation_replaced_unary_minus.find(SIGN_MINUS)
     while minus_index != -1:
         count_minuses = 1
         # count the minuses
-        while equation_replaced_unary_minus[minus_index + 1] == "u":
-            equation_replaced_unary_minus = equation_replaced_unary_minus.replace("u", "", 1)
+        while equation_replaced_unary_minus[minus_index + 1] == SIGN_MINUS:
+            equation_replaced_unary_minus = equation_replaced_unary_minus.replace(SIGN_MINUS, "", 1)
             count_minuses += 1
         # if the number of minuses is even then the number is positive and the unary minus is redundant
         if count_minuses % 2 == 0:
-            equation_replaced_unary_minus = equation_replaced_unary_minus.replace("u", "", 1)
-        minus_index = equation_replaced_unary_minus.find("u", minus_index + 1)
+            equation_replaced_unary_minus = equation_replaced_unary_minus.replace(SIGN_MINUS, "", 1)
+        minus_index = equation_replaced_unary_minus.find(SIGN_MINUS, minus_index + 1)
     return equation_replaced_unary_minus
 
 

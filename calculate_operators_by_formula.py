@@ -149,7 +149,8 @@ def calculate_formula(formula: list) -> float:
                               "^": calculate_power_formula, "%": calculate_modulo_formula,
                               "!": calculate_factorial_formula, "~": calculate_negative_formula,
                               "$": calculate_max_formula, "&": calculate_min_formula,
-                              "@": calculate_average_formula, "#": calculate_add_digits_formula}
+                              "@": calculate_average_formula, "#": calculate_add_digits_formula,
+                              "u": calculate_negative_formula}
 
     if formula[0] in UNARY_OPERATORS_LIST_LEFT and check_operator_validation(formula[0], formula):
         return operators_calculations[formula[0]](formula)
