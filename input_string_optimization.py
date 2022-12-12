@@ -31,7 +31,8 @@ def replace_minus_with_unary_minus(equation: str) -> str:
     :param equation: the equation string.
     :return: the equation string with unary minus.
     """
-    equation_list = list(equation)
+    equation_without_spaces = equation.replace(" ", "")
+    equation_list = list(equation_without_spaces)
     if SIGN_MINUS in equation_list:
         raise InvalidOperatorError(SIGN_MINUS)
     if "-" in equation_list:
@@ -40,11 +41,12 @@ def replace_minus_with_unary_minus(equation: str) -> str:
             if minus_index == 0:
                 # if the first char is a minus, replace it with unary minus
                 equation_list[minus_index] = SIGN_MINUS
-            elif equation_list[minus_index - 1] in PRIORITY_DICT.keys() or equation_list[minus_index - 1] == "(" or \
+            elif equation_list[minus_index - 1] in PRIORITY_DICT.keys() or equation_list[
+                minus_index - 1] == OPENER_BRACKET or \
                     equation_list[minus_index - 1] == SIGN_MINUS:
                 # if the minus is after an operator, replace it with unary minus
                 equation_list[minus_index] = SIGN_MINUS
-            minus_index = equation.find("-", minus_index + 1)
+            minus_index = equation_without_spaces.find("-", minus_index + 1)
     return "".join(equation_list)
 
 
