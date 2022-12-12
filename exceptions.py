@@ -145,3 +145,16 @@ class TildaError(SyntaxEquationError):
 
     def __str__(self):
         return super().__str__() + "tilda ('~') error (a number has to come after a tilda): " + self.message
+
+
+class ComplexNumberError(MathEquationError):
+    """
+    This class represents the complex number error.
+    inherits from MathEquationError.
+    """
+
+    def __init__(self, message):
+        super().__init__(message)
+
+    def __str__(self):
+        return super().__str__() + "calculator doesn't support complex numbers: " + self.message
