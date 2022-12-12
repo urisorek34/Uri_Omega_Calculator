@@ -6,7 +6,7 @@ Description: this module contains the operators' calculations.
 
 from check_formula_operators import check_operator_validation
 from math_tools import factorial, pow
-from config import UNARY_OPERATORS_LIST_LEFT,SIGN_MINUS
+from config import UNARY_OPERATORS_LIST_LEFT, SIGN_MINUS
 from exceptions import ZeroDivisionCalculatorError
 
 
@@ -152,7 +152,8 @@ def calculate_formula(formula: list) -> float:
                               "@": calculate_average_formula, "#": calculate_add_digits_formula,
                               SIGN_MINUS: calculate_negative_formula}
 
-    if formula[0] in UNARY_OPERATORS_LIST_LEFT and check_operator_validation(formula[0], formula):
+    if (formula[0] in UNARY_OPERATORS_LIST_LEFT or formula[0] == SIGN_MINUS) and check_operator_validation(formula[0],
+                                                                                                           formula):
         return operators_calculations[formula[0]](formula)
     elif check_operator_validation(formula[1], formula):
         return operators_calculations[formula[1]](formula)

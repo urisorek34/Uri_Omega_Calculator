@@ -20,7 +20,6 @@ def convert_number_to_float(number_string: str) -> float:
     if number_string.count(".") > 1:
         raise MissingOperatorError(number_string)
     try:
-        number_string = number_string.replace(SIGN_MINUS, "-")
         return float(number_string)
     except ValueError:
         raise InvalidOperatorError(number_string)
@@ -82,18 +81,30 @@ def check_tilda_validation(equation: str) -> None:
             raise TildaError(equation)
 
 
-def check_unary_minus_priority(operator: str) -> int:
+def check_unary_minus_priority(operator: str) -> bool:
     """
-    This method checks if the operator is in higher priority than unary minus. "#" operator has higher priority an "~" has the same priority.
+    This method checks if the operator is in higher or equal in priority than unary minus. "#" operator has higher priority an "~" has the same priority.
     :param operator: the operator.
     :return: positive if higher priority, 0 if the same priority, negative if lower priority.
     """
-    if operator == SIGN_MINUS or operator == "#":
-        return 1
-    elif operator == "~":
-        return 0
+    if operator == "#":
+        return True
+    return False
+
+
+def priority_check(operator1: str, operator2: str) -> bool:
+    """
+    This method checks if the priority of the first operator is higher than the second operator.
+    :param operator1: the first operator.
+    :param operator2: the second operator.
+    :return: True if the first operator has higher priority, False otherwise.
+    """
+    if operator1 == SIGN_MINUS:
+        return check_unary_minus_priority(operator2)
+    elif operator2 == SIGN_MINUS:
+        return not check_unary_minus_priority(operator1)
     else:
-        return -1
+        return PRIORITY_DICT[operator1] <= PRIORITY_DICT[operator2]
 
 
 def convert_equation_to_numbers_and_operators(equation: str) -> list:
@@ -144,7 +155,7 @@ def convert_string_from_infix_to_postfix(equation: str) -> list:
                 postfix_equation.append(stack.pop())
             stack.pop()
         else:
-            while stack and stack[-1] != OPENER_BRACKET and PRIORITY_DICT[element] <= PRIORITY_DICT[stack[-1]]:
+            while stack and stack[-1] != OPENER_BRACKET and priority_check(element, stack[-1]):
                 # pop the stack until the first "(" or until the operator in the stack has lower priority
                 postfix_equation.append(stack.pop())
             stack.append(element)
