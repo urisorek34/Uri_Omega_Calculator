@@ -4,7 +4,7 @@ Date:
 Description: this module contains the operators' validation check for checking validation before calculating.
 """
 
-from config import BINARY_OPERATORS_LIST, UNARY_OPERATORS_LIST_LEFT, UNARY_OPERATORS_LIST_RIGHT
+from config import BINARY_OPERATORS_LIST, UNARY_OPERATORS_LIST_LEFT, UNARY_OPERATORS_LIST_RIGHT, SIGN_MINUS
 from exceptions import InvalidOperatorError
 
 
@@ -47,10 +47,9 @@ def check_operator_validation(operator: str, formula_list: list) -> bool:
     :param: operator: the operator that is given to the function.
     :return: True if the format is valid, False otherwise.
     """
-
     if operator in BINARY_OPERATORS_LIST:
         return format_binary_operator_validation(operator, formula_list)
-    elif operator in UNARY_OPERATORS_LIST_LEFT:
+    elif operator in UNARY_OPERATORS_LIST_LEFT or operator == SIGN_MINUS:
         return format_left_unary_operator_validation(operator, formula_list)
     elif operator in UNARY_OPERATORS_LIST_RIGHT:
         return format_right_unary_operator_validation(operator, formula_list)
