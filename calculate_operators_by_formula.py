@@ -5,7 +5,7 @@ Description: this module contains the operators' calculations.
 """
 
 from check_formula_operators import check_operator_validation
-from math_tools import factorial, pow
+from math_tools import factorial, checked_pow, calculate_add_digits_checked
 from config import UNARY_OPERATORS_LIST_LEFT, SIGN_MINUS
 from exceptions import ZeroDivisionCalculatorError
 
@@ -59,7 +59,7 @@ def calculate_power_formula(formula_list: list) -> float:
     :param: formula_list: the formula list.
     :return: the result of the calculation.
     """
-    return pow(formula_list[0], formula_list[2])
+    return checked_pow(formula_list[0], formula_list[2])
 
 
 def calculate_modulo_formula(formula_list: list) -> float:
@@ -129,12 +129,7 @@ def calculate_add_digits_formula(formula_list: list) -> float:
     :param: formula_list: the formula list.
     :return: the result of the calculation.
     """
-    number_string = str(formula_list[1]).replace(".", "")
-    factor = 1
-    if number_string[0] == "-":
-        factor = -1
-        number_string = number_string[1:]
-    return float(sum([int(digit) * factor for digit in number_string]))
+    return calculate_add_digits_checked(formula_list[1])
 
 
 def calculate_formula(formula: list) -> float:

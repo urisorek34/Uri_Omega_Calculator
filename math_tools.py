@@ -5,7 +5,7 @@ Description: this module contains the nontrivial math tools for calculating.
 """
 
 from math import pow
-from exceptions import FloatFactorialError, NegativeFactorialError,ComplexNumberError
+from exceptions import FloatFactorialError, NegativeFactorialError, ComplexNumberError,NegativeAddDigitsError
 
 
 def factorial(num: float) -> float:
@@ -25,7 +25,7 @@ def factorial(num: float) -> float:
 
 def checked_pow(num1: float, num2: float) -> float:
     """
-    This method calculates the power of a number.
+    This method calculates the power of a number checked if he is complex.
     :param num1: the number.
     :param num2: the power.
     :return: the power of the number.
@@ -34,3 +34,16 @@ def checked_pow(num1: float, num2: float) -> float:
         return pow(num1, num2)
     except ValueError:
         raise ComplexNumberError(f"{num1}^{num2} is complex number.")
+
+
+def calculate_add_digits_checked(number: float) -> float:
+    """
+    This method calculates the formula if the number not negative.
+    raise appropriate exception if the formula is not valid.
+    :param: formula_list: the formula list.
+    :return: the result of the calculation.
+    """
+    number_string = str(number).replace(".", "")
+    if number_string[0] == "-":
+        raise NegativeAddDigitsError(f"{number} is negative number.")
+    return float(sum([int(digit) for digit in number_string]))

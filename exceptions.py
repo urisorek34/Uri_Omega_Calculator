@@ -158,3 +158,16 @@ class ComplexNumberError(MathEquationError):
 
     def __str__(self):
         return super().__str__() + "calculator doesn't support complex numbers: " + self.message
+
+
+class NegativeAddDigitsError(MathEquationError):
+    """
+    This class represents the negative add digits error.
+    inherits from MathEquationError.
+    """
+
+    def __init__(self, message):
+        super().__init__(message)
+
+    def __str__(self):
+        return super().__str__() + "negative add digits is not allowed: " + self.message
