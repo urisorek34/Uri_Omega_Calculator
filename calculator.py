@@ -7,7 +7,7 @@ Description: this module contains the calculator class.
 from calculate_operators_by_formula import calculate_formula
 from config import UNARY_OPERATORS_LIST_LEFT, UNARY_OPERATORS_LIST_RIGHT, SIGN_MINUS
 from input_string_optimization import convert_string_from_infix_to_postfix
-from exceptions import MissingOperandError
+from exceptions import MissingOperandError, MissingOperatorError
 
 
 def calculate_postfix(postfix_list: list) -> float:
@@ -40,6 +40,9 @@ def calculate_postfix(postfix_list: list) -> float:
                 num2 = stack.pop()
                 num1 = stack.pop()
                 stack.append(calculate_formula([num1, item, num2]))
+            print(stack)
+    if len(stack) > 1:
+        raise MissingOperatorError(f"Missing operator in the equation.")
     return stack.pop()
 
 
