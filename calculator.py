@@ -20,6 +20,7 @@ def calculate_postfix(postfix_list: list) -> float:
     for item in postfix_list:
         if type(item) is float:
             # if the item is a number, push it to the stack.
+
             stack.append(item)
         else:
             if not stack:
@@ -42,6 +43,8 @@ def calculate_postfix(postfix_list: list) -> float:
                 stack.append(calculate_formula([num1, item, num2]))
     if len(stack) > 1:
         raise MissingOperatorError(f"Missing operator in the equation.")
+    if stack[0] == -0.0:
+        return -1 * stack.pop()
     return stack.pop()
 
 
