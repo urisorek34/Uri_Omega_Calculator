@@ -171,3 +171,15 @@ class NegativeAddDigitsError(MathEquationError):
 
     def __str__(self):
         return super().__str__() + "negative add digits is not allowed: " + self.message
+
+class OverMaxValueError(MathEquationError):
+    """
+    This class represents the over max value error.
+    inherits from MathEquationError.
+    """
+
+    def __init__(self, message):
+        super().__init__(message)
+
+    def __str__(self):
+        return super().__str__() + "over max value error: " + self.message
