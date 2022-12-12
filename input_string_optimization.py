@@ -102,6 +102,8 @@ def priority_check(operator1: str, operator2: str) -> bool:
     if operator1 == SIGN_MINUS:
         return check_unary_minus_priority(operator2)
     elif operator2 == SIGN_MINUS:
+        if "~" == operator1:
+            return False
         return not check_unary_minus_priority(operator1)
     else:
         return PRIORITY_DICT[operator1] <= PRIORITY_DICT[operator2]
