@@ -76,8 +76,9 @@ def check_tilda_validation(equation: str) -> None:
     :return: True if the tilda is valid, False otherwise.
     :raise: TildaError if the tilda is not valid.
     """
-    for index, element in enumerate(equation):
-        if element == "~" and equation[index + 1] in PRIORITY_DICT.keys():
+    equation_without_unary_minus = equation.replace(SIGN_MINUS, "")
+    for index, element in enumerate(equation_without_unary_minus):
+        if element == "~" and equation_without_unary_minus[index + 1] in PRIORITY_DICT.keys():
             raise TildaError(equation)
 
 
