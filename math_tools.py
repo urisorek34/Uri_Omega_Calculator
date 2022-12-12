@@ -5,7 +5,8 @@ Description: this module contains the nontrivial math tools for calculating.
 """
 
 from math import pow
-from exceptions import FloatFactorialError, NegativeFactorialError, ComplexNumberError,NegativeAddDigitsError
+from exceptions import FloatFactorialError, NegativeFactorialError, ComplexNumberError, NegativeAddDigitsError, \
+    ZeroDivisionCalculatorError
 
 
 def factorial(num: float) -> float:
@@ -21,6 +22,19 @@ def factorial(num: float) -> float:
     if num == 0:
         return 1
     return num * factorial(num - 1)
+
+
+def checked_divide(num1: float, num2: float) -> float:
+    """
+    This method calculates the division of a number checked if he is zero.
+    :param num1: the number.
+    :param num2: the divisor.
+    :return: the result of the division.
+    """
+    try:
+        return num1 / num2
+    except ZeroDivisionError:
+        raise ZeroDivisionCalculatorError(f"{num1}/{num2} is zero division.")
 
 
 def checked_pow(num1: float, num2: float) -> float:

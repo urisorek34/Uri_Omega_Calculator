@@ -5,9 +5,8 @@ Description: this module contains the operators' calculations.
 """
 
 from check_formula_operators import check_operator_validation
-from math_tools import factorial, checked_pow, calculate_add_digits_checked
+from math_tools import factorial, checked_pow, calculate_add_digits_checked, checked_divide
 from config import UNARY_OPERATORS_LIST_LEFT, SIGN_MINUS
-from exceptions import ZeroDivisionCalculatorError
 
 
 def calculate_minus_formula(formula_list: list) -> float:
@@ -47,9 +46,7 @@ def calculate_divide_formula(formula_list: list) -> float:
     :param: formula_list: the formula list.
     :return: the result of the calculation.
     """
-    if formula_list[2] == 0:
-        raise ZeroDivisionCalculatorError("".join(formula_list))
-    return formula_list[0] / formula_list[2]
+    return checked_divide(formula_list[0], formula_list[2])
 
 
 def calculate_power_formula(formula_list: list) -> float:
