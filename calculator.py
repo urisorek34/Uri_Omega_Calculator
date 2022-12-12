@@ -50,4 +50,7 @@ def calculate(equation: str) -> float:
     :return: the result of the calculation.
     """
     postfix_list = convert_string_from_infix_to_postfix(equation)
-    return calculate_postfix(postfix_list)
+    try:
+        return calculate_postfix(postfix_list)
+    except IndexError:
+        raise MissingOperandError(f"Missing operand in {equation}.")
