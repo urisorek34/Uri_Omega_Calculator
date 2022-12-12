@@ -5,9 +5,9 @@ Description: this module contains the operators' calculations.
 """
 
 from check_formula_operators import check_operator_validation
-from math_tools import factorial, pow
-from config import UNARY_OPERATORS_LIST_LEFT
-from exceptions import ZeroDivisionCalculatorError
+from math_tools import factorial, checked_pow, calculate_add_digits_checked, checked_divide
+from config import UNARY_OPERATORS_LIST_LEFT, SIGN_MINUS
+from exceptions import OverMaxValueError
 
 
 def calculate_minus_formula(formula_list: list) -> float:
@@ -47,9 +47,7 @@ def calculate_divide_formula(formula_list: list) -> float:
     :param: formula_list: the formula list.
     :return: the result of the calculation.
     """
-    if formula_list[2] == 0:
-        raise ZeroDivisionCalculatorError("".join(formula_list))
-    return formula_list[0] / formula_list[2]
+    return checked_divide(formula_list[0], formula_list[2])
 
 
 def calculate_power_formula(formula_list: list) -> float:
@@ -59,7 +57,7 @@ def calculate_power_formula(formula_list: list) -> float:
     :param: formula_list: the formula list.
     :return: the result of the calculation.
     """
-    return pow(formula_list[0], formula_list[2])
+    return checked_pow(formula_list[0], formula_list[2])
 
 
 def calculate_modulo_formula(formula_list: list) -> float:
@@ -129,12 +127,7 @@ def calculate_add_digits_formula(formula_list: list) -> float:
     :param: formula_list: the formula list.
     :return: the result of the calculation.
     """
-    number_string = str(formula_list[0])
-    factor = 1
-    if number_string[0] == "-":
-        factor = -1
-        number_string = number_string[1:]
-    return sum([int(digit) * factor for digit in number_string])
+    return calculate_add_digits_checked(formula_list[1])
 
 
 def calculate_formula(formula: list) -> float:
@@ -148,9 +141,15 @@ def calculate_formula(formula: list) -> float:
                               "^": calculate_power_formula, "%": calculate_modulo_formula,
                               "!": calculate_factorial_formula, "~": calculate_negative_formula,
                               "$": calculate_max_formula, "&": calculate_min_formula,
-                              "@": calculate_average_formula, "#": calculate_add_digits_formula}
-
-    if formula[0] in UNARY_OPERATORS_LIST_LEFT and check_operator_validation(formula[0], formula):
-        return operators_calculations[formula[0]](formula)
-    elif check_operator_validation(formula[1], formula):
-        return operators_calculations[formula[1]](formula)
+                              "@": calculate_average_formula, "#": calculate_add_digits_formula,
+                              SIGN_MINUS: calculate_negative_formula}
+    try:
+        if (formula[0] in UNARY_OPERATORS_LIST_LEFT or formula[0] == SIGN_MINUS) and check_operator_validation(
+                formula[0],
+                formula):
+            return operators_calculations[formula[0]](formula)
+        elif check_operator_validation(formula[1], formula):
+            return operators_calculations[formula[1]](formula)
+    except (OverflowError, RecursionError):
+        formula = [str(x) for x in formula]
+        raise OverMaxValueError(f"The result of {''.join(formula)} is too big!")

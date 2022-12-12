@@ -132,3 +132,54 @@ class InvalidOperatorError(SyntaxEquationError):
 
     def __str__(self):
         return super().__str__() + " invalid operator: " + self.message
+
+
+class TildaError(SyntaxEquationError):
+    """
+    This class represents the tilda error.
+    inherits from SyntaxEquationError.
+    """
+
+    def __init__(self, message):
+        super().__init__(message)
+
+    def __str__(self):
+        return super().__str__() + "tilda ('~') error (a number has to come after a tilda): " + self.message
+
+
+class ComplexNumberError(MathEquationError):
+    """
+    This class represents the complex number error.
+    inherits from MathEquationError.
+    """
+
+    def __init__(self, message):
+        super().__init__(message)
+
+    def __str__(self):
+        return super().__str__() + "calculator doesn't support complex numbers: " + self.message
+
+
+class NegativeAddDigitsError(MathEquationError):
+    """
+    This class represents the negative add digits error.
+    inherits from MathEquationError.
+    """
+
+    def __init__(self, message):
+        super().__init__(message)
+
+    def __str__(self):
+        return super().__str__() + "negative add digits is not allowed: " + self.message
+
+class OverMaxValueError(MathEquationError):
+    """
+    This class represents the over max value error.
+    inherits from MathEquationError.
+    """
+
+    def __init__(self, message):
+        super().__init__(message)
+
+    def __str__(self):
+        return super().__str__() + "over max value error: " + self.message
