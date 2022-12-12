@@ -41,3 +41,16 @@ def test_white_spaces_input():
     :return: None.
     """
     assert "Syntax Error!\n" in get_result_with_exception_handling("  \t\n\r ")
+
+
+def test_simple_equations():
+    """
+    This method tests simple equations.
+    :return: None.
+    """
+    testing_dict = {"3+4": 7, "3-4": -1, "3*4": 12, "3/4": 0.75, "3^4": 81, "3%4": 3, "7$8": 8, "7&8": 7,
+                    "10!": 3628800, "-8@4": -2, "-123#": -6, "~-5": 5}
+    for test, result in testing_dict.items():
+        print(test)
+        assert get_result_with_exception_handling(test) == f"the result of the equation is: {float(result)}"
+
