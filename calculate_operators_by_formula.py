@@ -130,12 +130,11 @@ def calculate_add_digits_formula(formula_list: list) -> float:
     :return: the result of the calculation.
     """
     number_string = str(formula_list[1]).replace(".", "")
-    print(number_string)
     factor = 1
     if number_string[0] == "-":
         factor = -1
         number_string = number_string[1:]
-    return sum([int(digit) * factor for digit in number_string])
+    return float(sum([int(digit) * factor for digit in number_string]))
 
 
 def calculate_formula(formula: list) -> float:
