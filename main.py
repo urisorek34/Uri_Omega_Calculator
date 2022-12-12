@@ -7,6 +7,6 @@ and calculates it with the calculator object.
 """
 from  input_string_optimization import *
 from calculator import *
-lst = convert_string_from_infix_to_postfix("1+2+(3$4)+5+6+7+8!")
+lst = convert_string_from_infix_to_postfix("1+2+(3$4)+5---6+7+8!")
 print(lst)
 print(calculate_postfix(lst))

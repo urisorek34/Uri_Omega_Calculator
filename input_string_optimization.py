@@ -5,7 +5,7 @@ Date:
 Description: this module contains formula validation check for the input string (what to calculate).
 """
 
-from config import PRIORITY_DICT, OPENER_BRACKET, CLOSER_BRACKET,SIGN_MINUS
+from config import PRIORITY_DICT, OPENER_BRACKET, CLOSER_BRACKET, SIGN_MINUS
 from equation_validation import check_equation_validation
 from exceptions import MissingOperatorError, TildaError, InvalidOperatorError
 
@@ -49,25 +49,25 @@ def replace_minus_with_unary_minus(equation: str) -> str:
     return "".join(equation_list)
 
 
-def reduce_minuses(equation: str) -> str:
-    """
-    return equation with reduced unary minuses (unary minus).
-    :param equation: the given equation string
-    :return: the new string with reduced minuses.
-    """
-    equation_replaced_unary_minus = replace_minus_with_unary_minus(equation)
-    minus_index = equation_replaced_unary_minus.find(SIGN_MINUS)
-    while minus_index != -1:
-        count_minuses = 1
-        # count the minuses
-        while equation_replaced_unary_minus[minus_index + 1] == SIGN_MINUS:
-            equation_replaced_unary_minus = equation_replaced_unary_minus.replace(SIGN_MINUS, "", 1)
-            count_minuses += 1
-        # if the number of minuses is even then the number is positive and the unary minus is redundant
-        if count_minuses % 2 == 0:
-            equation_replaced_unary_minus = equation_replaced_unary_minus.replace(SIGN_MINUS, "", 1)
-        minus_index = equation_replaced_unary_minus.find(SIGN_MINUS, minus_index + 1)
-    return equation_replaced_unary_minus
+# def reduce_minuses(equation: str) -> str:
+#     """
+#     return equation with reduced unary minuses (unary minus).
+#     :param equation: the given equation string
+#     :return: the new string with reduced minuses.
+#     """
+#     equation_replaced_unary_minus = replace_minus_with_unary_minus(equation)
+#     minus_index = equation_replaced_unary_minus.find(SIGN_MINUS)
+#     while minus_index != -1:
+#         count_minuses = 1
+#         # count the minuses
+#         while equation_replaced_unary_minus[minus_index + 1] == SIGN_MINUS:
+#             equation_replaced_unary_minus = equation_replaced_unary_minus.replace(SIGN_MINUS, "", 1)
+#             count_minuses += 1
+#         # if the number of minuses is even then the number is positive and the unary minus is redundant
+#         if count_minuses % 2 == 0:
+#             equation_replaced_unary_minus = equation_replaced_unary_minus.replace(SIGN_MINUS, "", 1)
+#         minus_index = equation_replaced_unary_minus.find(SIGN_MINUS, minus_index + 1)
+#     return equation_replaced_unary_minus
 
 
 def check_tilda_validation(equation: str) -> None:
@@ -82,6 +82,20 @@ def check_tilda_validation(equation: str) -> None:
             raise TildaError(equation)
 
 
+def check_unary_minus_priority(operator: str) -> int:
+    """
+    This method checks if the operator is in higher priority than unary minus. "#" operator has higher priority an "~" has the same priority.
+    :param operator: the operator.
+    :return: positive if higher priority, 0 if the same priority, negative if lower priority.
+    """
+    if operator == SIGN_MINUS or operator == "#":
+        return 1
+    elif operator == "~":
+        return 0
+    else:
+        return -1
+
+
 def convert_equation_to_numbers_and_operators(equation: str) -> list:
     """
     This method converts the equation list to a list of numbers and operators.
@@ -89,14 +103,14 @@ def convert_equation_to_numbers_and_operators(equation: str) -> list:
     :return: the formula list in postfix format.
     """
     check_equation_validation(equation)
-    equation = reduce_minuses(equation)
+    equation = replace_minus_with_unary_minus(equation)
     check_tilda_validation(equation)
     equation_lst = []
     index = 0
     while index != len(equation):
         number = ""
         if equation[index] in PRIORITY_DICT.keys() or equation[index] == OPENER_BRACKET or equation[
-            index] == CLOSER_BRACKET:
+            index] == CLOSER_BRACKET or equation[index] == SIGN_MINUS:
             equation_lst.append(equation[index])
             index += 1
         else:
@@ -106,7 +120,6 @@ def convert_equation_to_numbers_and_operators(equation: str) -> list:
                 number += equation[index]
                 index += 1
             equation_lst.append(convert_number_to_float(number))
-
     return equation_lst
 
 
