@@ -47,6 +47,10 @@ def get_input_string() -> str:
         print("\nKeyboardInterrupt --> assuming the user wants to exit")
         print(EXIT_MESSAGE)
         exit(1)
+    except OSError:
+        print("\nOSError --> assuming the user wants to exit")
+        print(EXIT_MESSAGE)
+        exit(1)
 
     return input_string
 
