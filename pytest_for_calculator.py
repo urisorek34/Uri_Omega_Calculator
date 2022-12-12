@@ -33,3 +33,11 @@ def test_empty_input():
     :return: None.
     """
     assert "Syntax Error!\n" in get_result_with_exception_handling("")
+
+
+def test_white_spaces_input():
+    """
+    This method tests white spaces input.
+    :return: None.
+    """
+    assert "Syntax Error!\n" in get_result_with_exception_handling("  \t\n\r ")
