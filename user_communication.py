@@ -82,4 +82,8 @@ def communicate_with_user() -> None:
         elif input_string.lower() == "m":
             print(menu_message())
         else:
-            print(get_result_with_exception_handling(input_string))
+            if not input_string:
+                print("You didn't enter an valid input, please try again.\n\n")
+            else:
+                print(get_result_with_exception_handling(input_string))
+
