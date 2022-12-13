@@ -55,7 +55,17 @@ def reduce_minuses(equation: str) -> str:
     :param equation: the given equation string
     :return: the new string with reduced minuses.
     """
-
+    equation_list = list(equation)
+    if "-" in equation_list:
+        minus_index = equation_list.index("-")
+        while minus_index != -1:
+            if minus_index != 0 and (equation[minus_index - 1] == CLOSER_BRACKET or equation_list[
+                minus_index - 1] in UNARY_OPERATORS_LIST_RIGHT or equation_list[minus_index - 1] == "." or
+                                     equation_list[minus_index - 1].isdigit()):
+                equation = covert_number_of_minuses_to_operator(equation, minus_index)
+                equation_list = list(equation)
+            minus_index = equation.find("-", minus_index + 1)
+    return equation
 
 
 def covert_number_of_minuses_to_operator(equation: str, starting_index: int) -> str:
