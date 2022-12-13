@@ -127,7 +127,7 @@ def calculate_add_digits_formula(formula_list: list) -> float:
     :param: formula_list: the formula list.
     :return: the result of the calculation.
     """
-    return calculate_add_digits_checked(formula_list[1])
+    return calculate_add_digits_checked(formula_list[0])
 
 
 def calculate_formula(formula: list) -> float:

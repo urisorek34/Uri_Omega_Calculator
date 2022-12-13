@@ -95,7 +95,7 @@ def remove_spaces(equation: str) -> str:
     :param equation: the equation.
     :return: the equation without spaces.
     """
-    return equation.replace(" ", "")
+    return equation.replace(" ", "").replace("\t", "")
 
 
 def check_tilda_validation(equation: str) -> None:
