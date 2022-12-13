@@ -80,10 +80,12 @@ def covert_number_of_minuses_to_operator(equation: str, starting_index: int) -> 
     while index < len(equation) and equation[index] == "-":
         counter += 1
         index += 1
-    if counter % 2 == 0:
-        equation = equation[:starting_index] + "+" + equation[index - 1:]
-    else:
+    if counter == 0:
+        return equation
+    elif counter % 2 == 1:
         equation = equation[:starting_index] + "-" + equation[index - 1:]
+    else:
+        equation = equation[:starting_index] + "+" + equation[index - 1:]
     return equation
 
 
