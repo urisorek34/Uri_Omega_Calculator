@@ -31,8 +31,7 @@ def replace_minus_with_unary_minus(equation: str) -> str:
     :param equation: the equation string.
     :return: the equation string with unary minus.
     """
-    equation_without_spaces = equation.replace(" ", "")
-    equation_list = list(equation_without_spaces)
+    equation_list = list(equation)
     if SIGN_MINUS in equation_list:
         raise InvalidOperatorError(SIGN_MINUS)
     if "-" in equation_list:
@@ -46,29 +45,25 @@ def replace_minus_with_unary_minus(equation: str) -> str:
                     equation_list[minus_index - 1] == SIGN_MINUS:
                 # if the minus is after an operator, replace it with unary minus
                 equation_list[minus_index] = SIGN_MINUS
-            minus_index = equation_without_spaces.find("-", minus_index + 1)
+            minus_index = equation.find("-", minus_index + 1)
     return "".join(equation_list)
 
 
-# def reduce_minuses(equation: str) -> str:
-#     """
-#     return equation with reduced unary minuses (unary minus).
-#     :param equation: the given equation string
-#     :return: the new string with reduced minuses.
-#     """
-#     equation_replaced_unary_minus = replace_minus_with_unary_minus(equation)
-#     minus_index = equation_replaced_unary_minus.find(SIGN_MINUS)
-#     while minus_index != -1:
-#         count_minuses = 1
-#         # count the minuses
-#         while equation_replaced_unary_minus[minus_index + 1] == SIGN_MINUS:
-#             equation_replaced_unary_minus = equation_replaced_unary_minus.replace(SIGN_MINUS, "", 1)
-#             count_minuses += 1
-#         # if the number of minuses is even then the number is positive and the unary minus is redundant
-#         if count_minuses % 2 == 0:
-#             equation_replaced_unary_minus = equation_replaced_unary_minus.replace(SIGN_MINUS, "", 1)
-#         minus_index = equation_replaced_unary_minus.find(SIGN_MINUS, minus_index + 1)
-#     return equation_replaced_unary_minus
+def reduce_minuses(equation: str) -> str:
+    """
+    return equation with reduced operator minuses which near a number.
+    :param equation: the given equation string
+    :return: the new string with reduced minuses.
+    """
+
+
+def remove_spaces(equation: str) -> str:
+    """
+    This method removes the spaces from the equation.
+    :param equation: the equation.
+    :return: the equation without spaces.
+    """
+    return equation.replace(" ", "")
 
 
 def check_tilda_validation(equation: str) -> None:
@@ -119,6 +114,7 @@ def convert_equation_to_numbers_and_operators(equation: str) -> list:
     :return: the formula list in postfix format.
     """
     check_equation_validation(equation)
+    equation = remove_spaces(equation)
     equation = replace_minus_with_unary_minus(equation)
     check_tilda_validation(equation)
     equation_lst = []
