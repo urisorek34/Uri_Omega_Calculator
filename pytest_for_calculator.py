@@ -4,7 +4,6 @@ Date:
 
 Description: this module contains the pytest testing for the "Omega Calculator" program.
 """
-import pytest
 from user_communication import get_result_with_exception_handling
 
 
@@ -49,8 +48,22 @@ def test_simple_equations():
     :return: None.
     """
     testing_dict = {"3+4": 7, "3-4": -1, "3*4": 12, "3/4": 0.75, "3^4": 81, "3%4": 3, "7$8": 8, "7&8": 7,
-                    "10!": 3628800, "-8@4": -2, "-123#": -6, "~-5": 5}
+                    "10!": 3628800, "-8@4": -2, "-123#": -6, "~-5": 5, "3%4-6": -3, "3-4&6": -1, "345*2-~6": 696, }
     for test, result in testing_dict.items():
         print(test)
         assert get_result_with_exception_handling(test) == f"the result of the equation is: {float(result)}"
 
+
+def test_advanced_equations():
+    """
+    This method tests 20 advanced equations (also with unary minuses, brackets, and spaces).
+    :return: None.
+    """
+    testing_dict = {"-~(-3)*( 3!)": -18, "(5%3)--(2 $3)&(2^ 3)": 5, "7^2+-(-3)!": 55, "6%3*6-(-3@ 6)": -1.5,
+                    "132#*(--2)+20": 32, "~78   - -8^2": -142, "(~-3!+ 2)@4": 6, "3^2*3-(3!@ 10)": 19,
+                    "90%(3*   -3)": 0, "--- -~3*9": -27, " 45 -  (3  *  3  ^  2)": 18, "-- -~(5&-6)$-10*8": -48,
+                    "1234567#$123410#*2": 56, "(76&3$2@1 ^3)#": 8, "3!!@--3": 361.5, "9^0.5*(   10@-30)": -30,
+                    "3+~5&(90-6)": -2, "56%3*2-~(3^2)": 13, "67$78*( 5&200)": 390, "102#!@-~   (3^2)": 7.5}
+    for test, result in testing_dict.items():
+        print(test)
+        assert get_result_with_exception_handling(test) == f"the result of the equation is: {float(result)}"
