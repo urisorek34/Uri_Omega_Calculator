@@ -31,10 +31,10 @@ def checked_divide(num1: float, num2: float) -> float:
     :param num2: the divisor.
     :return: the result of the division.
     """
-    try:
-        return num1 / num2
-    except ZeroDivisionError:
+
+    if num2 == 0:
         raise ZeroDivisionCalculatorError(f"{num1}/{num2} is zero division.")
+    return num1 / num2
 
 
 def checked_pow(num1: float, num2: float) -> float:
@@ -44,10 +44,9 @@ def checked_pow(num1: float, num2: float) -> float:
     :param num2: the power.
     :return: the power of the number.
     """
-    try:
-        return pow(num1, num2)
-    except ValueError:
+    if num1 < 0 and num2 % 1 != 0:
         raise ComplexNumberError(f"{num1}^{num2} is complex number.")
+    return pow(num1, num2)
 
 
 def calculate_add_digits_checked(number: float) -> float:
