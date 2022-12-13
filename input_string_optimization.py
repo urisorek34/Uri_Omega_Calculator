@@ -5,7 +5,7 @@ Date:
 Description: this module contains formula validation check for the input string (what to calculate).
 """
 
-from config import PRIORITY_DICT, OPENER_BRACKET, CLOSER_BRACKET, SIGN_MINUS
+from config import PRIORITY_DICT, OPENER_BRACKET, CLOSER_BRACKET, SIGN_MINUS, UNARY_OPERATORS_LIST_RIGHT
 from equation_validation import check_equation_validation
 from exceptions import MissingOperatorError, TildaError, InvalidOperatorError
 
@@ -51,10 +51,30 @@ def replace_minus_with_unary_minus(equation: str) -> str:
 
 def reduce_minuses(equation: str) -> str:
     """
-    return equation with reduced operator minuses which near a number.
+    return equation with reduced minuses which near a number and replace it with "+" operator or one "-" operator.
     :param equation: the given equation string
     :return: the new string with reduced minuses.
     """
+
+
+
+def covert_number_of_minuses_to_operator(equation: str, starting_index: int) -> str:
+    """
+    function that convert number of minuses to operator "+" or "-".
+    :param equation: the equation string.
+    :param starting_index: the starting index of the minuses.
+    :return: the new equation string with the minuses converted to operator.
+    """
+    counter = -1
+    index = starting_index
+    while index < len(equation) and equation[index] == "-":
+        counter += 1
+        index += 1
+    if counter % 2 == 0:
+        equation = equation[:starting_index] + "+" + equation[index - 1:]
+    else:
+        equation = equation[:starting_index] + "-" + equation[index - 1:]
+    return equation
 
 
 def remove_spaces(equation: str) -> str:
@@ -115,6 +135,7 @@ def convert_equation_to_numbers_and_operators(equation: str) -> list:
     """
     check_equation_validation(equation)
     equation = remove_spaces(equation)
+    equation = reduce_minuses(equation)
     equation = replace_minus_with_unary_minus(equation)
     check_tilda_validation(equation)
     equation_lst = []
