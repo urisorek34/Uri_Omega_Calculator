@@ -1,12 +1,11 @@
 """
 Auther: Uri Sorek
-Date:
-Description: this module contains the operators' calculations.
+Description: this module contains the operators calculations.
 """
 
 from check_formula_operators import check_operator_validation
-from math_tools import factorial, checked_pow, calculate_add_digits_checked, checked_divide
-from config import UNARY_OPERATORS_LIST_LEFT, SIGN_MINUS
+from math_tools import *
+from config import UNARY_OPERATORS_LIST_LEFT
 from exceptions import OverMaxValueError
 
 
@@ -67,7 +66,7 @@ def calculate_modulo_formula(formula_list: list) -> float:
     :param: formula_list: the formula list.
     :return: the result of the calculation.
     """
-    return formula_list[0] % formula_list[2]
+    return checked_modulo(formula_list[0], formula_list[2])
 
 
 def calculate_factorial_formula(formula_list: list) -> float:
@@ -127,7 +126,7 @@ def calculate_add_digits_formula(formula_list: list) -> float:
     :param: formula_list: the formula list.
     :return: the result of the calculation.
     """
-    return calculate_add_digits_checked(formula_list[1])
+    return calculate_add_digits_checked(formula_list[0])
 
 
 def calculate_formula(formula: list) -> float:
@@ -135,18 +134,19 @@ def calculate_formula(formula: list) -> float:
     This method calculates the formula according to the operator.
     :param: formula: the formula list.
     :return: the result of the calculation.
+    :raise: OverMaxValueError: if the result is over the max value of float.
     """
-    operators_calculations = {"+": calculate_plus_formula, "-": calculate_minus_formula,
-                              "*": calculate_multiply_formula, "/": calculate_divide_formula,
-                              "^": calculate_power_formula, "%": calculate_modulo_formula,
-                              "!": calculate_factorial_formula, "~": calculate_negative_formula,
-                              "$": calculate_max_formula, "&": calculate_min_formula,
-                              "@": calculate_average_formula, "#": calculate_add_digits_formula,
+    operators_calculations = {PLUS_OPERATOR: calculate_plus_formula, MINUS_OPERATOR: calculate_minus_formula,
+                              MULTIPLY_OPERATOR: calculate_multiply_formula, DIVIDE_OPERATOR: calculate_divide_formula,
+                              POWER_OPERATOR: calculate_power_formula, MODULO_OPERATOR: calculate_modulo_formula,
+                              FACTORIAL_OPERATOR: calculate_factorial_formula,
+                              TILDA_OPERATOR: calculate_negative_formula,
+                              MAX_OPERATOR: calculate_max_formula, MIN_OPERATOR: calculate_min_formula,
+                              AVG_OPERATOR: calculate_average_formula, ADD_DIGIT_OPERATOR: calculate_add_digits_formula,
                               SIGN_MINUS: calculate_negative_formula}
     try:
         if (formula[0] in UNARY_OPERATORS_LIST_LEFT or formula[0] == SIGN_MINUS) and check_operator_validation(
-                formula[0],
-                formula):
+                formula[0], formula):
             return operators_calculations[formula[0]](formula)
         elif check_operator_validation(formula[1], formula):
             return operators_calculations[formula[1]](formula)

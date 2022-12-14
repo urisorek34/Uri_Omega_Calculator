@@ -1,10 +1,10 @@
 """
 Auther: Uri Sorek
-Date:
-Description: this module contains the nontrivial math tools for calculating.
+Description: this module contains the math calculations that can cause a MathEquationError.
 """
 
 from math import pow
+from signs import *
 from exceptions import FloatFactorialError, NegativeFactorialError, ComplexNumberError, NegativeAddDigitsError, \
     ZeroDivisionCalculatorError
 
@@ -12,8 +12,10 @@ from exceptions import FloatFactorialError, NegativeFactorialError, ComplexNumbe
 def factorial(num: float) -> float:
     """
     This method calculates the factorial of a number.
-    :param num: the number.
+    :param: num: the number.
     :return: the factorial of the number.
+    :raise: FloatFactorialError if the number is float.
+    :raise: NegativeFactorialError if the number is negative.
     """
     if num < 0:
         raise NegativeFactorialError(str(num) + " is negative number.")
@@ -31,23 +33,23 @@ def checked_divide(num1: float, num2: float) -> float:
     :param num2: the divisor.
     :return: the result of the division.
     """
-    try:
-        return num1 / num2
-    except ZeroDivisionError:
+
+    if num2 == 0:
         raise ZeroDivisionCalculatorError(f"{num1}/{num2} is zero division.")
+    return num1 / num2
 
 
 def checked_pow(num1: float, num2: float) -> float:
     """
     This method calculates the power of a number checked if he is complex.
-    :param num1: the number.
-    :param num2: the power.
+    :param: num1: the number.
+    :param: num2: the power.
     :return: the power of the number.
+    :raise: ComplexNumberError if the result is a complex number.
     """
-    try:
-        return pow(num1, num2)
-    except ValueError:
+    if num1 < 0 and num2 % 1 != 0:
         raise ComplexNumberError(f"{num1}^{num2} is complex number.")
+    return pow(num1, num2)
 
 
 def calculate_add_digits_checked(number: float) -> float:
@@ -56,8 +58,22 @@ def calculate_add_digits_checked(number: float) -> float:
     raise appropriate exception if the formula is not valid.
     :param: formula_list: the formula list.
     :return: the result of the calculation.
+    :raise: NegativeAddDigitsError if the number is negative.
     """
-    number_string = str(number).replace(".", "")
-    if number_string[0] == "-":
+    number_string = str(number).replace(DECIMAL_POINT, "")
+    if number_string[0] == MINUS_OPERATOR:
         raise NegativeAddDigitsError(f"{number} is negative number.")
     return float(sum([int(digit) for digit in number_string]))
+
+
+def checked_modulo(num1: float, num2: float) -> float:
+    """
+    This method calculates the modulo of a number checked if he is zero.
+    :param: num1: the number.
+    :param: num2: the divisor.
+    :return: the result of the modulo.
+    :raise: ZeroDivisionCalculatorError if the divisor is zero.
+    """
+    if num2 == 0:
+        raise ZeroDivisionCalculatorError(f"{num1}%{num2} is zero division.")
+    return num1 % num2

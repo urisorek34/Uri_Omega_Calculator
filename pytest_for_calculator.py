@@ -1,8 +1,6 @@
 """
 Auther: Uri Sorek
-Date:
-
-Description: this module contains the pytest testing for the "Omega Calculator" program.
+Description: this module contains the pytest testing for the calculator.
 """
 from user_communication import get_result_with_exception_handling
 

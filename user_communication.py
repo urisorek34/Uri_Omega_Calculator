@@ -1,12 +1,10 @@
 """
 Auther: Uri Sorek
-Date:
-
 Description: this module contains the user communication.
 """
-from config import PRIORITY_DICT
 from calculator import calculate
 from exceptions import SyntaxEquationError, MathEquationError
+from signs import *
 
 WELCOME_MESSAGE = "Welcome to the Uri's Omega advanced calculator!\n\n" \
                   "this calculator has few extra rules:\n" \
@@ -19,6 +17,33 @@ WELCOME_MESSAGE = "Welcome to the Uri's Omega advanced calculator!\n\n" \
 
 EXIT_MESSAGE = "Thank you for using uri's Omega calculator!\n"
 
+OPERATOR_EXPLANATION_DICT = {
+    PLUS_OPERATOR: "plus operator:\n- Priority 1\n- Binary operator\n- operator add two numbers (first_number + "
+                   "second_number)",
+    MINUS_OPERATOR: "minus operator:\n- Priority 1\n- Binary operator\n- operator sub two numbers (first_number - "
+                    "second_number)",
+    MULTIPLY_OPERATOR: "multiply operator\n- Priority 2\n- Binary operator\n- operator multiply two numbers ("
+                       "first_number * second_number)",
+    DIVIDE_OPERATOR: "divide operator:\n- Priority 2\n- Binary operator\n- operator divide two numbers (first_number / "
+                     "second_number)\n- raise MathEquationError --> ZeroDivisionCalculatorError",
+    POWER_OPERATOR: "power operator:\n- Priority 3\n-Binary operator\n- operator power two numbers (first_number ^ "
+                    "second_number)\n- raise MathEquationError --> ComplexNumberError",
+    MODULO_OPERATOR: "modulo operator:\n- Priority 4\n-Binary operator\n- operator do modulo on two numbers ("
+                     "first_number % second_number)\n- raise MathEquationError --> ZeroDivisionCalculatorError",
+    MAX_OPERATOR: "max operator:\n- Priority 5\n- Binary operator\n- operator return max value between two numbers ("
+                  "first_number $ second_number)",
+    MIN_OPERATOR: "min operator:\n- Priority 5\n- Binary operator\n- operator return min value between two numbers ("
+                  "first_number & second_number)",
+    AVG_OPERATOR: "average operator:\n- Priority 5\n- Binary operator\n- operator return average of two numbers ("
+                  "first_number @ second_number)",
+    FACTORIAL_OPERATOR: "factorial operator:\n- Priority 6\n- Right unary operator\n- operator return the factorial "
+                        "of a number ( number!)\n- raise MathEquationError --> FactorialError --> FloatFactorialError,"
+                        "NegativeFactorialError",
+    TILDA_OPERATOR: "tilda operator:\n- Priority 6\n- Left unary operator\n- operator changes the sign of a number ("
+                    "~number = -number)\n- raise SyntaxEquationError --> TildaError",
+    ADD_DIGIT_OPERATOR: "add digits operator:\n- Priority 6\n- Right unary operator\n- operator return the sum of the "
+                        "digits of a number (123# = 1+2+3 = 6)\n- raise MathEquationError --> NegativeAddDigitsError"}
+
 
 def menu_message() -> str:
     """
@@ -26,8 +51,8 @@ def menu_message() -> str:
     :return: the menu message.
     """
     message = "The menu:\nthe allowed operators and their priority (the higher priority is calculated first):\n"
-    for operator, priority in PRIORITY_DICT.items():
-        message += f"{operator} --> {priority}\n"
+    for operator, explanation in OPERATOR_EXPLANATION_DICT.items():
+        message += "-" * 60 + f"\n{operator} --> {explanation}\n\n"
     return message
 
 
@@ -68,8 +93,6 @@ def get_result_with_exception_handling(input_string: str) -> str:
         return str(syntax_error)
     except MathEquationError as math_error:
         return str(math_error)
-    finally:
-        print("You are welcome to try again!\n\n")
 
 
 def communicate_with_user() -> None:
@@ -78,6 +101,7 @@ def communicate_with_user() -> None:
     :return: None.
     """
     print(WELCOME_MESSAGE)
+    print(menu_message())
     while True:
         input_string = get_input_string()
         if input_string.lower() == "e":
@@ -87,7 +111,7 @@ def communicate_with_user() -> None:
             print(menu_message())
         else:
             if not input_string:
-                print("You didn't enter an valid input, please try again.\n\n")
+                print("The input you entered is not valid, please try again.\n\n")
             else:
                 print(get_result_with_exception_handling(input_string))
-
+                print("You are welcome to enter another equation!\n")

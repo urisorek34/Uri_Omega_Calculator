@@ -1,7 +1,5 @@
 """
 Auther: Uri Sorek
-Date:
-
 Description: this module contains the exceptions for the calculator.
 """
 
@@ -40,7 +38,7 @@ class MissingOperatorError(SyntaxEquationError):
         super().__init__(message)
 
     def __str__(self):
-        return super().__str__() + " missing operator: " + self.message
+        return super().__str__() + "missing operator: " + self.message
 
 
 class MissingBracketError(SyntaxEquationError):
@@ -53,7 +51,7 @@ class MissingBracketError(SyntaxEquationError):
         super().__init__(message)
 
     def __str__(self):
-        return super().__str__() + " missing bracket: " + self.message
+        return super().__str__() + "missing bracket: " + self.message
 
 
 class MissingOperandError(SyntaxEquationError):
@@ -66,7 +64,7 @@ class MissingOperandError(SyntaxEquationError):
         super().__init__(message)
 
     def __str__(self):
-        return super().__str__() + " missing operand: " + self.message
+        return super().__str__() + "missing operand: " + self.message
 
 
 class FactorialError(MathEquationError):
@@ -79,7 +77,7 @@ class FactorialError(MathEquationError):
         super().__init__(message)
 
     def __str__(self):
-        return super().__str__() + " factorial error: "
+        return super().__str__() + "factorial error: "
 
 
 class NegativeFactorialError(FactorialError):
@@ -92,7 +90,7 @@ class NegativeFactorialError(FactorialError):
         super().__init__(message)
 
     def __str__(self):
-        return super().__str__() + " negative factorial is not allowed: " + self.message
+        return super().__str__() + "negative factorial is not allowed: " + self.message
 
 
 class FloatFactorialError(FactorialError):
@@ -105,7 +103,7 @@ class FloatFactorialError(FactorialError):
         super().__init__(message)
 
     def __str__(self):
-        return super().__str__() + " float factorial is not allowed: " + self.message
+        return super().__str__() + "float factorial is not allowed: " + self.message
 
 
 class ZeroDivisionCalculatorError(MathEquationError):
@@ -118,7 +116,7 @@ class ZeroDivisionCalculatorError(MathEquationError):
         super().__init__(message)
 
     def __str__(self):
-        return super().__str__() + " zero division error: " + self.message
+        return super().__str__() + "zero division error: " + self.message
 
 
 class InvalidOperatorError(SyntaxEquationError):
@@ -131,7 +129,7 @@ class InvalidOperatorError(SyntaxEquationError):
         super().__init__(message)
 
     def __str__(self):
-        return super().__str__() + " invalid operator: " + self.message
+        return super().__str__() + "invalid operator: " + self.message
 
 
 class TildaError(SyntaxEquationError):
@@ -172,6 +170,7 @@ class NegativeAddDigitsError(MathEquationError):
     def __str__(self):
         return super().__str__() + "negative add digits is not allowed: " + self.message
 
+
 class OverMaxValueError(MathEquationError):
     """
     This class represents the over max value error.
@@ -182,4 +181,4 @@ class OverMaxValueError(MathEquationError):
         super().__init__(message)
 
     def __str__(self):
-        return super().__str__() + "over max value error: " + self.message
+        return super().__str__() + "over calculator max value error: " + self.message
