@@ -4,7 +4,7 @@ Date:
 
 Description: this module contains formula validation check for the input string (what to calculate).
 """
-from config import OPENER_BRACKET, CLOSER_BRACKET
+from signs import OPENER_BRACKET, CLOSER_BRACKET
 from exceptions import MissingBracketError
 
 

@@ -5,7 +5,8 @@ Date:
 Description: this module contains the calculator class.
 """
 from calculate_operators_by_formula import calculate_formula
-from config import UNARY_OPERATORS_LIST_LEFT, UNARY_OPERATORS_LIST_RIGHT, SIGN_MINUS
+from signs import SIGN_MINUS
+from config import UNARY_OPERATORS_LIST_LEFT, UNARY_OPERATORS_LIST_RIGHT
 from input_string_optimization import convert_string_from_infix_to_postfix
 from exceptions import MissingOperandError, MissingOperatorError
 

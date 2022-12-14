@@ -6,6 +6,7 @@ Description: this module contains the user communication.
 """
 from calculator import calculate
 from exceptions import SyntaxEquationError, MathEquationError
+from signs import *
 
 WELCOME_MESSAGE = "Welcome to the Uri's Omega advanced calculator!\n\n" \
                   "this calculator has few extra rules:\n" \
@@ -19,28 +20,31 @@ WELCOME_MESSAGE = "Welcome to the Uri's Omega advanced calculator!\n\n" \
 EXIT_MESSAGE = "Thank you for using uri's Omega calculator!\n"
 
 OPERATOR_EXPLANATION_DICT = {
-    "+": "plus operator:\n-Priority 1\n-Binary operator\n-operator add two numbers (first_number + second_number)",
-    "-": "minus operator:\n-Priority 1\n-Binary operator\n-operator sub two numbers (first_number - second_number)",
-    "*": "multiply operator\n-Priority 2\n-Binary operator\n-operator multiply two numbers (first_number * "
-         "second_number)",
-    "/": "divide operator:\n-Priority 2\n-Binary operator\n-operator divide two numbers (first_number / "
-         "second_number)\n-raise MathEquationError --> ZeroDivisionCalculatorError",
-    "^": "power operator:\n-Priority 3\n-Binary operator\n-operator power two numbers (first_number ^ "
-         "second_number)\n-raise MathEquationError --> ComplexNumberError",
-    "%": "modulo operator:\n-Priority 4\n-Binary operator\n-operator do modulo on two numbers (first_number % "
-         "second_number)\n-raise MathEquationError --> ZeroDivisionCalculatorError",
-    "$": "max operator:\n-Priority 5\n-Binary operator\n-operator return max value between two numbers (first_number $ "
-         "second_number)",
-    "&": "min operator:\n-Priority 5\n-Binary operator\n-operator return min value between two numbers (first_number & "
-         "second_number)",
-    "@": "average operator:\n-Priority 5\n-Binary operator\n-operator return average of two numbers (first_number @ "
-         "second_number)",
-    "!": "max operator:\n-Priority 6\n-Right unary operator\n-operator return the factorial of a number ("
-         "number!)\n-raise MathEquationError --> FactorialError --> FloatFactorialError,NegativeFactorialError",
-    "~": "tilda operator:\n-Priority 6\n-Left unary operator\n-operator changes the sign of a number (~number = "
-         "-number)\n-raise SyntaxEquationError TildaError",
-    "#": "add digits operator:\n-Priority 6\n-Right unary operator\n-operator return the sum of the digits of a "
-         "number (123# = 1+2+3 = 6)\n-raise MathEquationError --> NegativeAddDigitsError"}
+    PLUS_OPERATOR: "plus operator:\n- Priority 1\n- Binary operator\n- operator add two numbers (first_number + "
+                   "second_number)",
+    MINUS_OPERATOR: "minus operator:\n- Priority 1\n- Binary operator\n- operator sub two numbers (first_number - "
+                    "second_number)",
+    MULTIPLY_OPERATOR: "multiply operator\n- Priority 2\n- Binary operator\n- operator multiply two numbers ("
+                       "first_number * second_number)",
+    DIVIDE_OPERATOR: "divide operator:\n- Priority 2\n- Binary operator\n- operator divide two numbers (first_number / "
+                     "second_number)\n- raise MathEquationError --> ZeroDivisionCalculatorError",
+    POWER_OPERATOR: "power operator:\n- Priority 3\n-Binary operator\n- operator power two numbers (first_number ^ "
+                    "second_number)\n- raise MathEquationError --> ComplexNumberError",
+    MODULO_OPERATOR: "modulo operator:\n- Priority 4\n-Binary operator\n- operator do modulo on two numbers ("
+                     "first_number % second_number)\n- raise MathEquationError --> ZeroDivisionCalculatorError",
+    MAX_OPERATOR: "max operator:\n- Priority 5\n- Binary operator\n- operator return max value between two numbers ("
+                  "first_number $ second_number)",
+    MIN_OPERATOR: "min operator:\n- Priority 5\n- Binary operator\n- operator return min value between two numbers ("
+                  "first_number & second_number)",
+    AVG_OPERATOR: "average operator:\n- Priority 5\n- Binary operator\n- operator return average of two numbers ("
+                  "first_number @ second_number)",
+    FACTORIAL_OPERATOR: "factorial operator:\n- Priority 6\n- Right unary operator\n- operator return the factorial "
+                        "of a number ( number!)\n- raise MathEquationError --> FactorialError --> FloatFactorialError,"
+                        "NegativeFactorialError",
+    TILDA_OPERATOR: "tilda operator:\n- Priority 6\n- Left unary operator\n- operator changes the sign of a number ("
+                    "~number = -number)\n- raise SyntaxEquationError --> TildaError",
+    ADD_DIGIT_OPERATOR: "add digits operator:\n- Priority 6\n- Right unary operator\n- operator return the sum of the "
+                        "digits of a number (123# = 1+2+3 = 6)\n- raise MathEquationError --> NegativeAddDigitsError"}
 
 
 def menu_message() -> str:
@@ -111,4 +115,4 @@ def communicate_with_user() -> None:
                 print("The input you entered is not valid, please try again.\n\n")
             else:
                 print(get_result_with_exception_handling(input_string))
-        print("You are welcome to try again!\n\n")
+                print("You are welcome to enter another equation!\n")

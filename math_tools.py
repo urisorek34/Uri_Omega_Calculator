@@ -5,6 +5,7 @@ Description: this module contains the nontrivial math tools for calculating.
 """
 
 from math import pow
+from signs import *
 from exceptions import FloatFactorialError, NegativeFactorialError, ComplexNumberError, NegativeAddDigitsError, \
     ZeroDivisionCalculatorError
 
@@ -56,8 +57,8 @@ def calculate_add_digits_checked(number: float) -> float:
     :param: formula_list: the formula list.
     :return: the result of the calculation.
     """
-    number_string = str(number).replace(".", "")
-    if number_string[0] == "-":
+    number_string = str(number).replace(DECIMAL_POINT, "")
+    if number_string[0] == MINUS_OPERATOR:
         raise NegativeAddDigitsError(f"{number} is negative number.")
     return float(sum([int(digit) for digit in number_string]))
 
