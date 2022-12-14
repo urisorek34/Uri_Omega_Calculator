@@ -134,6 +134,7 @@ def calculate_formula(formula: list) -> float:
     This method calculates the formula according to the operator.
     :param: formula: the formula list.
     :return: the result of the calculation.
+    :raise: OverMaxValueError: if the result is over the max value of float.
     """
     operators_calculations = {PLUS_OPERATOR: calculate_plus_formula, MINUS_OPERATOR: calculate_minus_formula,
                               MULTIPLY_OPERATOR: calculate_multiply_formula, DIVIDE_OPERATOR: calculate_divide_formula,
@@ -145,8 +146,7 @@ def calculate_formula(formula: list) -> float:
                               SIGN_MINUS: calculate_negative_formula}
     try:
         if (formula[0] in UNARY_OPERATORS_LIST_LEFT or formula[0] == SIGN_MINUS) and check_operator_validation(
-                formula[0],
-                formula):
+                formula[0], formula):
             return operators_calculations[formula[0]](formula)
         elif check_operator_validation(formula[1], formula):
             return operators_calculations[formula[1]](formula)

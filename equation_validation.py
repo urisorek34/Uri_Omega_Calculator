@@ -1,6 +1,6 @@
 """
 Auther: Uri Sorek
-Description: this module contains formula validation check for the input string (what to calculate).
+Description: this module contains formula validation of unrelated operand/operator things in the equation.
 """
 from signs import OPENER_BRACKET, CLOSER_BRACKET
 from exceptions import MissingBracketError
@@ -8,9 +8,10 @@ from exceptions import MissingBracketError
 
 def check_equation_validation(equation: str) -> bool:
     """
-    This method checks the validation of the equation given from the user.
+    This method checks the validation of the unrelated operand/operator things in the equation.
     :param: equation: the equation.
     :return: True if the equation is valid, False otherwise.
+    :raise: MissingBracketError: if the equation is missing a bracket (opener or closer bracket).
     """
     if not check_brackets_validation(equation):
         raise MissingBracketError(equation)

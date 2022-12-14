@@ -3,7 +3,7 @@ Auther: Uri Sorek
 Description: this module contains the conversion of the equation into a calculable format.
 """
 from signs import *
-from config import PRIORITY_DICT, UNARY_OPERATORS_LIST_RIGHT
+from config import PRIORITY_DICT, UNARY_OPERATORS_LIST_RIGHT, UNARY_OPERATORS_LIST_LEFT
 from equation_validation import check_equation_validation
 from exceptions import MissingOperatorError, TildaError, InvalidOperatorError
 
@@ -13,6 +13,7 @@ def convert_number_to_float(number_string: str) -> float:
     the function converts a string number to float.
     :param: number_string: the string that suppose to be a number.
     :return: the number converted to float.
+    :raise: InvalidOperatorError if the string is not a number.
     """
 
     if number_string.count(DECIMAL_POINT) > 1:
@@ -40,6 +41,7 @@ def replace_minus_with_unary_minus(equation: str) -> str:
     replace the minus with unary minus.
     :param: equation: the equation string.
     :return: the equation string with unary minus.
+    :raise: InvalidOperatorError if there is "u" in the equation before changing unary minus.
     """
     equation_list = list(equation)
     if SIGN_MINUS in equation_list:
@@ -141,7 +143,7 @@ def priority_check(operator1: str, operator2: str) -> bool:
     if operator1 == SIGN_MINUS:
         return check_unary_minus_priority(operator2)
     elif operator2 == SIGN_MINUS:
-        if TILDA_OPERATOR == operator1:
+        if operator1 in UNARY_OPERATORS_LIST_LEFT:
             return False
         return not check_unary_minus_priority(operator1)
     else:

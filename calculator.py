@@ -14,6 +14,8 @@ def calculate_postfix(postfix_list: list) -> float:
     This method calculates the postfix list.
     :param: postfix_list: the postfix list.
     :return: the result of the calculation.
+    :raise: MissingOperandError: if missing operand in the equation.
+    :raise: MissingOperatorError: if missing operator in the equation.
     """
     stack = []
     for item in postfix_list:
@@ -33,7 +35,6 @@ def calculate_postfix(postfix_list: list) -> float:
                 # if the operator is unary operator from the right.
                 num = stack.pop()
                 stack.append(calculate_formula([num, item]))
-
             else:
                 # if the item is a binary operator.
                 num2 = stack.pop()
@@ -51,6 +52,7 @@ def calculate(equation: str) -> float:
     This method calculates the equation.
     :param: equation: the equation.
     :return: the result of the calculation.
+    :raise: MissingOperandError: if operand is missing in the equation.
     """
     postfix_list = convert_string_from_infix_to_postfix(equation)
     try:

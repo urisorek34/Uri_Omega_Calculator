@@ -10,7 +10,6 @@ from exceptions import InvalidOperatorError
 def format_binary_operator_validation(operator: str, formula_list: list) -> bool:
     """
     This method checks the format of the binary operator in form of a formula (operand operator operand).
-
     :param: formula_list: the formula list.
     :param: operator: the operator that is given to the function.
     :return: True if the format is valid, False otherwise.
@@ -41,10 +40,11 @@ def format_right_unary_operator_validation(operator: str, formula_list: list) ->
 
 def check_operator_validation(operator: str, formula_list: list) -> bool:
     """
-    This method checks the format of the operator in the formula.
+    This method checks if the formula format is valid.
     :param: formula_list: the formula list.
     :param: operator: the operator that is given to the function.
     :return: True if the format is valid, False otherwise.
+    :raise: InvalidOperatorError: if the operator is not valid.
     """
     if operator in BINARY_OPERATORS_LIST:
         return format_binary_operator_validation(operator, formula_list)
