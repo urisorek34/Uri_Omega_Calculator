@@ -101,6 +101,7 @@ def communicate_with_user() -> None:
     :return: None.
     """
     print(WELCOME_MESSAGE)
+    print(menu_message())
     while True:
         input_string = get_input_string()
         if input_string.lower() == "e":
