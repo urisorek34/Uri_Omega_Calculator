@@ -23,6 +23,18 @@ def convert_number_to_float(number_string: str) -> float:
         raise InvalidOperatorError(number_string)
 
 
+def is_a_number(potential_number: str) -> bool:
+    """
+    This method checks if the given string is a number.
+    :param potential_number: The string that suppose to be a number.
+    :return: True if the string is a number, False otherwise.
+    """
+    if potential_number == CLOSER_BRACKET or potential_number in UNARY_OPERATORS_LIST_RIGHT \
+            or potential_number == DECIMAL_POINT or potential_number.isdigit():
+        return True
+    return False
+
+
 def replace_minus_with_unary_minus(equation: str) -> str:
     """
     replace the minus with unary minus.
@@ -32,7 +44,7 @@ def replace_minus_with_unary_minus(equation: str) -> str:
     equation_list = list(equation)
     if SIGN_MINUS in equation_list:
         raise InvalidOperatorError(SIGN_MINUS)
-    if "-" in equation_list:
+    if MINUS_OPERATOR in equation_list:
         minus_index = equation_list.index(MINUS_OPERATOR)
         while minus_index != -1:
             if minus_index == 0:
@@ -54,12 +66,10 @@ def reduce_minuses(equation: str) -> str:
     :return: the new string with reduced minuses.
     """
     equation_list = list(equation)
-    if "-" in equation_list:
+    if MINUS_OPERATOR in equation_list:
         minus_index = equation_list.index(MINUS_OPERATOR)
         while minus_index != -1:
-            if minus_index != 0 and (equation[minus_index - 1] == CLOSER_BRACKET or equation_list[
-                minus_index - 1] in UNARY_OPERATORS_LIST_RIGHT or equation_list[minus_index - 1] == DECIMAL_POINT or
-                                     equation_list[minus_index - 1].isdigit()):
+            if minus_index != 0 and is_a_number(equation_list[minus_index - 1]):
                 equation = covert_number_of_minuses_to_operator(equation, minus_index)
                 equation_list = list(equation)
             minus_index = equation.find(MINUS_OPERATOR, minus_index + 1)
@@ -140,8 +150,8 @@ def priority_check(operator1: str, operator2: str) -> bool:
 
 def convert_equation_to_numbers_and_operators(equation: str) -> list:
     """
-    This method converts the equation list to a list of numbers and operators.
-    :param: equation: the equation list.
+    This method converts the equation list to a list of numbers (floats) and operators.
+    :param: equation: the equation .
     :return: the formula list in postfix format.
     """
     check_equation_validation(equation)
@@ -153,8 +163,8 @@ def convert_equation_to_numbers_and_operators(equation: str) -> list:
     index = 0
     while index != len(equation):
         number = ""
-        if equation[index] in PRIORITY_DICT.keys() or equation[index] == OPENER_BRACKET or equation[
-            index] == CLOSER_BRACKET or equation[index] == SIGN_MINUS:
+        if equation[index] in PRIORITY_DICT.keys() or equation[index] == OPENER_BRACKET or \
+                equation[index] == CLOSER_BRACKET or equation[index] == SIGN_MINUS:
             equation_lst.append(equation[index])
             index += 1
         else:
