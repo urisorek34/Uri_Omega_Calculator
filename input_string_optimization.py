@@ -1,8 +1,6 @@
 """
 Auther: Uri Sorek
-Date:
-
-Description: this module contains formula validation check for the input string (what to calculate).
+Description: this module contains the conversion of the equation into a calculable format.
 """
 from signs import *
 from config import PRIORITY_DICT, UNARY_OPERATORS_LIST_RIGHT

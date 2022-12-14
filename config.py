@@ -1,6 +1,5 @@
 """
 Auther: Uri Sorek
-Date:
 Description: configuration file for the calculator.
 """
 from signs import *

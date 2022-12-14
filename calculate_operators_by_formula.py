@@ -1,10 +1,8 @@
 """
 Auther: Uri Sorek
-Date:
-Description: this module contains the operators' calculations.
+Description: this module contains the operators calculations.
 """
 
-from signs import *
 from check_formula_operators import check_operator_validation
 from math_tools import *
 from config import UNARY_OPERATORS_LIST_LEFT

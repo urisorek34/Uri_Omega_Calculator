@@ -1,8 +1,6 @@
 """
 Auther: Uri Sorek
-Date:
-
-Description: this module contains the calculator class.
+Description: this module contains the finale calculation of the equation.
 """
 from calculate_operators_by_formula import calculate_formula
 from signs import SIGN_MINUS
@@ -21,7 +19,6 @@ def calculate_postfix(postfix_list: list) -> float:
     for item in postfix_list:
         if type(item) is float:
             # if the item is a number, push it to the stack.
-
             stack.append(item)
         else:
             if not stack:

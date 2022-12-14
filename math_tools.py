@@ -1,7 +1,6 @@
 """
 Auther: Uri Sorek
-Date:
-Description: this module contains the nontrivial math tools for calculating.
+Description: this module contains the math calculations that can cause a MathEquationError.
 """
 
 from math import pow

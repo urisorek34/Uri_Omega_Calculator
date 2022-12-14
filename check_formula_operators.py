@@ -1,6 +1,5 @@
 """
 Auther: Uri Sorek
-Date:
 Description: this module contains the operators' validation check for checking validation before calculating.
 """
 
