@@ -11,7 +11,7 @@ from exceptions import MissingOperandError, MissingOperatorError
 
 def calculate_postfix(postfix_list: list) -> float:
     """
-    This method calculates the postfix list.
+    This method calculates the result of an equation (list) in format of postfix.
     :param: postfix_list: the postfix list.
     :return: the result of the calculation.
     :raise: MissingOperandError: if missing operand in the equation.

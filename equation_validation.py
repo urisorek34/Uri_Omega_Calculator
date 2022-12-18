@@ -24,17 +24,17 @@ def check_brackets_validation(equation: str) -> bool:
     :param: equation: the equation.
     :return: True if the brackets are valid, False otherwise.
     """
-    brackets_stck = []
+    brackets_stack = []
     # for each bracket in the equation
     for char in equation:
         # if the char is an opener, add it to the stack
         if char == OPENER_BRACKET:
-            brackets_stck.append(OPENER_BRACKET)
+            brackets_stack.append(OPENER_BRACKET)
         elif char == CLOSER_BRACKET:
             # if the char is a closer, check if the stack is empty
-            if len(brackets_stck) == 0:
+            if len(brackets_stack) == 0:
                 return False
             else:
-                brackets_stck.pop()
+                brackets_stack.pop()
 
-    return len(brackets_stck) == 0
+    return len(brackets_stack) == 0
