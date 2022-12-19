@@ -52,7 +52,8 @@ def replace_minus_with_unary_minus(equation: str) -> str:
             if minus_index == 0:
                 # if the first char is a minus, replace it with unary minus
                 equation_list[minus_index] = SIGN_MINUS
-            elif equation_list[minus_index - 1] in PRIORITY_DICT.keys() or equation_list[
+            elif equation_list[minus_index - 1] not in UNARY_OPERATORS_LIST_RIGHT and equation_list[
+                minus_index - 1] in PRIORITY_DICT.keys() or equation_list[
                 minus_index - 1] == OPENER_BRACKET or \
                     equation_list[minus_index - 1] == SIGN_MINUS:
                 # if the minus is after an operator, replace it with unary minus
