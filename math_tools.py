@@ -58,10 +58,10 @@ def calculate_add_digits_checked(number: float) -> float:
     :return: the result of the calculation.
     :raise: NegativeAddDigitsError if the number is negative.
     """
-    number_string = str(number).replace(DECIMAL_POINT, "")
+    number_string = str(number)
     if number_string[0] == MINUS_OPERATOR:
         raise NegativeAddDigitsError(f"{number} is negative number.")
-    return float(sum([int(digit) for digit in number_string]))
+    return float(sum([int(digit) for digit in number_string if digit.isdigit()]))
 
 
 def checked_modulo(number: float, divisor: float) -> float:
